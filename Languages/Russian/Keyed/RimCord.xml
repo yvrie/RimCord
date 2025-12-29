@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <!-- Settings -->
+    <RimCord_Settings_Header>Настройки RimCord</RimCord_Settings_Header>
+    <RimCord_Settings_HeaderDesc>Настройка интеграции Discord Rich Presence для RimWorld</RimCord_Settings_HeaderDesc>
+    
+    <RimCord_EnableRichPresence>Включить Rich Presence</RimCord_EnableRichPresence>
+    <RimCord_EnableRichPresenceDesc>Главный переключатель интеграции Discord Rich Presence</RimCord_EnableRichPresenceDesc>
+    
+    <RimCord_ShowColonyName>Показывать название колонии</RimCord_ShowColonyName>
+    <RimCord_ShowColonyNameDesc>Отображать название вашей колонии в статусе Discord</RimCord_ShowColonyNameDesc>
+    
+    <RimCord_ShowColonistCount>Показывать количество колонистов</RimCord_ShowColonistCount>
+    <RimCord_ShowColonistCountDesc>Отображать текущее количество колонистов</RimCord_ShowColonistCountDesc>
+    
+    <RimCord_ShowGameSpeed>Показывать скорость игры</RimCord_ShowGameSpeed>
+    <RimCord_ShowGameSpeedDesc>Отображать текущую скорость игры (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
+    
+    <RimCord_ShowBiome>Показывать биом</RimCord_ShowBiome>
+    <RimCord_ShowBiomeDesc>Отображать текущий биом в статусе Discord</RimCord_ShowBiomeDesc>
+    
+    <RimCord_ShowStorytellerIcon>Показывать иконку рассказчика</RimCord_ShowStorytellerIcon>
+    <RimCord_ShowStorytellerIconDesc>Использовать маленькое изображение Discord для текущего рассказчика (Кассандра, Фиби, Рэнди или моды)</RimCord_ShowStorytellerIconDesc>
+    
+    <RimCord_UpdateFrequency>Частота обновления</RimCord_UpdateFrequency>
+    <RimCord_Seconds>секунд</RimCord_Seconds>
+    
+    <RimCord_EnableCustomButton>Включить пользовательскую кнопку Discord</RimCord_EnableCustomButton>
+    <RimCord_EnableCustomButtonDesc>Добавляет кликабельную кнопку в Rich Presence (Twitch, Patreon и т.д.)</RimCord_EnableCustomButtonDesc>
+    <RimCord_ButtonNote>Примечание: Кнопки видны только другим, кто просматривает ваш профиль, а не вам.</RimCord_ButtonNote>
+    <RimCord_CustomButtonLabel>Текст кнопки (макс. 32 символа)</RimCord_CustomButtonLabel>
+    <RimCord_CustomButtonUrl>URL кнопки (должен начинаться с https://)</RimCord_CustomButtonUrl>
+    <RimCord_UrlWarning>URL должен начинаться с https:// для работы с кнопками Discord</RimCord_UrlWarning>
+    
+    <!-- Status Messages -->
+    <RimCord_Status_Playing>Играет в RimWorld</RimCord_Status_Playing>
+    <RimCord_Status_PlayingRimWorld>Играет в RimWorld</RimCord_Status_PlayingRimWorld>
+    <RimCord_Status_Paused>Игра приостановлена</RimCord_Status_Paused>
+    
+    <!-- Activity Messages -->
+    <RimCord_Activity_Raid>ПОД АТАКОЙ!</RimCord_Activity_Raid>
+    <RimCord_Activity_MentalBreak>Управляет психическими срывами</RimCord_Activity_MentalBreak>
+    
+    <!-- Game Info -->
+    <RimCord_Colonist>колонист</RimCord_Colonist>
+    <RimCord_Colonists>колонистов</RimCord_Colonists>
+    <RimCord_Year>Год</RimCord_Year>
+    <RimCord_Speed>скорость</RimCord_Speed>
+    
+    <!-- Menu -->
+    <RimCord_MainMenu>Главное Меню</RimCord_MainMenu>
+    <RimCord_BrowsingMods>Просмотр модов и настроек</RimCord_BrowsingMods>
+    
+    <!-- Events -->
+    <RimCord_UnderAttack>ПОД АТАКОЙ!</RimCord_UnderAttack>
+    <RimCord_RaidBy>Налёт {0}</RimCord_RaidBy>
+    <RimCord_MentalBreak>Психический Срыв</RimCord_MentalBreak>
+    <RimCord_Event>Событие</RimCord_Event>
+    
+    <!-- Mod Count -->
+    <RimCord_Mod>мод</RimCord_Mod>
+    <RimCord_Mods>модов</RimCord_Mods>
+</LanguageData>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <!-- Settings -->
+    <RimCord_Settings_Header>RimCord 設定</RimCord_Settings_Header>
+    <RimCord_Settings_HeaderDesc>RimWorld の Discord Rich Presence 統合を設定</RimCord_Settings_HeaderDesc>
+    
+    <RimCord_EnableRichPresence>Rich Presence を有効化</RimCord_EnableRichPresence>
+    <RimCord_EnableRichPresenceDesc>Discord Rich Presence 統合のメインスイッチ</RimCord_EnableRichPresenceDesc>
+    
+    <RimCord_ShowColonyName>コロニー名を表示</RimCord_ShowColonyName>
+    <RimCord_ShowColonyNameDesc>Discord ステータスにコロニー名を表示</RimCord_ShowColonyNameDesc>
+    
+    <RimCord_ShowColonistCount>入植者数を表示</RimCord_ShowColonistCount>
+    <RimCord_ShowColonistCountDesc>現在の入植者数を表示</RimCord_ShowColonistCountDesc>
+    
+    <RimCord_ShowGameSpeed>ゲーム速度を表示</RimCord_ShowGameSpeed>
+    <RimCord_ShowGameSpeedDesc>現在のゲーム速度を表示（1x、2x、3x、4x）</RimCord_ShowGameSpeedDesc>
+    
+    <RimCord_ShowBiome>バイオームを表示</RimCord_ShowBiome>
+    <RimCord_ShowBiomeDesc>Discord ステータスに現在のバイオームを表示</RimCord_ShowBiomeDesc>
+    
+    <RimCord_ShowStorytellerIcon>語り手アイコンを表示</RimCord_ShowStorytellerIcon>
+    <RimCord_ShowStorytellerIconDesc>Discord の小さい画像を現在の語り手（カサンドラ、フィービー、ランディ、またはMOD）に合わせて表示</RimCord_ShowStorytellerIconDesc>
+    
+    <RimCord_UpdateFrequency>更新頻度</RimCord_UpdateFrequency>
+    <RimCord_Seconds>秒</RimCord_Seconds>
+    
+    <RimCord_EnableCustomButton>カスタムDiscordボタンを有効化</RimCord_EnableCustomButton>
+    <RimCord_EnableCustomButtonDesc>Rich Presenceにクリック可能なボタンを追加（Twitch、Patreonなど）</RimCord_EnableCustomButtonDesc>
+    <RimCord_ButtonNote>注意：ボタンはあなたのプロフィールを見ている他の人にのみ表示され、自分には表示されません。</RimCord_ButtonNote>
+    <RimCord_CustomButtonLabel>ボタンラベル（最大32文字）</RimCord_CustomButtonLabel>
+    <RimCord_CustomButtonUrl>ボタンURL（https://で始まる必要があります）</RimCord_CustomButtonUrl>
+    <RimCord_UrlWarning>URLはDiscordボタンで有効にするためにhttps://で始まる必要があります</RimCord_UrlWarning>
+    
+    <!-- Status Messages -->
+    <RimCord_Status_Playing>RimWorld をプレイ中</RimCord_Status_Playing>
+    <RimCord_Status_PlayingRimWorld>RimWorld をプレイ中</RimCord_Status_PlayingRimWorld>
+    <RimCord_Status_Paused>ゲーム一時停止中</RimCord_Status_Paused>
+    
+    <!-- Activity Messages -->
+    <RimCord_Activity_Raid>襲撃中！</RimCord_Activity_Raid>
+    <RimCord_Activity_MentalBreak>精神崩壊を管理中</RimCord_Activity_MentalBreak>
+    
+    <!-- Game Info -->
+    <RimCord_Colonist>入植者</RimCord_Colonist>
+    <RimCord_Colonists>入植者</RimCord_Colonists>
+    <RimCord_Year>年</RimCord_Year>
+    <RimCord_Speed>速度</RimCord_Speed>
+    
+    <!-- Menu -->
+    <RimCord_MainMenu>メインメニュー</RimCord_MainMenu>
+    <RimCord_BrowsingMods>MODと設定を閲覧中</RimCord_BrowsingMods>
+    
+    <!-- Events -->
+    <RimCord_UnderAttack>襲撃中！</RimCord_UnderAttack>
+    <RimCord_RaidBy>{0}の襲撃</RimCord_RaidBy>
+    <RimCord_MentalBreak>精神崩壊</RimCord_MentalBreak>
+    <RimCord_Event>イベント</RimCord_Event>
+    
+    <!-- Mod Count -->
+    <RimCord_Mod>MOD</RimCord_Mod>
+    <RimCord_Mods>MOD</RimCord_Mods>
+</LanguageData>

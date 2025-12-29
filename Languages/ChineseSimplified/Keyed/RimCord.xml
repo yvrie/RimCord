@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <!-- Settings -->
+    <RimCord_Settings_Header>RimCord 设置</RimCord_Settings_Header>
+    <RimCord_Settings_HeaderDesc>配置 RimWorld 的 Discord Rich Presence 集成</RimCord_Settings_HeaderDesc>
+    
+    <RimCord_EnableRichPresence>启用 Rich Presence</RimCord_EnableRichPresence>
+    <RimCord_EnableRichPresenceDesc>Discord Rich Presence 集成的主开关</RimCord_EnableRichPresenceDesc>
+    
+    <RimCord_ShowColonyName>显示殖民地名称</RimCord_ShowColonyName>
+    <RimCord_ShowColonyNameDesc>在 Discord 状态中显示您的殖民地名称</RimCord_ShowColonyNameDesc>
+    
+    <RimCord_ShowColonistCount>显示殖民者数量</RimCord_ShowColonistCount>
+    <RimCord_ShowColonistCountDesc>显示当前殖民者数量</RimCord_ShowColonistCountDesc>
+    
+    <RimCord_ShowGameSpeed>显示游戏速度</RimCord_ShowGameSpeed>
+    <RimCord_ShowGameSpeedDesc>显示当前游戏速度（1x、2x、3x、4x）</RimCord_ShowGameSpeedDesc>
+    
+    <RimCord_ShowBiome>显示生物群系</RimCord_ShowBiome>
+    <RimCord_ShowBiomeDesc>在 Discord 状态中显示当前生物群系</RimCord_ShowBiomeDesc>
+    
+    <RimCord_ShowStorytellerIcon>显示叙述者图标</RimCord_ShowStorytellerIcon>
+    <RimCord_ShowStorytellerIconDesc>将 Discord 的小图标用于当前叙述者（卡桑德拉、菲比、兰迪或模组）</RimCord_ShowStorytellerIconDesc>
+    
+    <RimCord_UpdateFrequency>更新频率</RimCord_UpdateFrequency>
+    <RimCord_Seconds>秒</RimCord_Seconds>
+    
+    <RimCord_EnableCustomButton>启用自定义Discord按钮</RimCord_EnableCustomButton>
+    <RimCord_EnableCustomButtonDesc>在Rich Presence中添加可点击的按钮（Twitch、Patreon等）</RimCord_EnableCustomButtonDesc>
+    <RimCord_ButtonNote>注意：按钮只对查看您个人资料的他人可见，您自己看不到。</RimCord_ButtonNote>
+    <RimCord_CustomButtonLabel>按钮标签（最多32个字符）</RimCord_CustomButtonLabel>
+    <RimCord_CustomButtonUrl>按钮URL（必须以https://开头）</RimCord_CustomButtonUrl>
+    <RimCord_UrlWarning>URL必须以https://开头才能用于Discord按钮</RimCord_UrlWarning>
+    
+    <!-- Status Messages -->
+    <RimCord_Status_Playing>正在游玩 RimWorld</RimCord_Status_Playing>
+    <RimCord_Status_PlayingRimWorld>正在游玩 RimWorld</RimCord_Status_PlayingRimWorld>
+    <RimCord_Status_Paused>游戏已暂停</RimCord_Status_Paused>
+    
+    <!-- Activity Messages -->
+    <RimCord_Activity_Raid>正在遭受袭击！</RimCord_Activity_Raid>
+    <RimCord_Activity_MentalBreak>正在处理精神崩溃</RimCord_Activity_MentalBreak>
+    
+    <!-- Game Info -->
+    <RimCord_Colonist>殖民者</RimCord_Colonist>
+    <RimCord_Colonists>殖民者</RimCord_Colonists>
+    <RimCord_Year>年</RimCord_Year>
+    <RimCord_Speed>速度</RimCord_Speed>
+    
+    <!-- Menu -->
+    <RimCord_MainMenu>主菜单</RimCord_MainMenu>
+    <RimCord_BrowsingMods>浏览模组和设置</RimCord_BrowsingMods>
+    
+    <!-- Events -->
+    <RimCord_UnderAttack>正在遭受袭击！</RimCord_UnderAttack>
+    <RimCord_RaidBy>{0}的袭击</RimCord_RaidBy>
+    <RimCord_MentalBreak>精神崩溃</RimCord_MentalBreak>
+    <RimCord_Event>事件</RimCord_Event>
+    
+    <!-- Mod Count -->
+    <RimCord_Mod>个模组</RimCord_Mod>
+    <RimCord_Mods>个模组</RimCord_Mods>
+</LanguageData>

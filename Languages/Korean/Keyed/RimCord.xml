@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <!-- Settings -->
+    <RimCord_Settings_Header>RimCord 설정</RimCord_Settings_Header>
+    <RimCord_Settings_HeaderDesc>RimWorld용 Discord Rich Presence 통합 구성</RimCord_Settings_HeaderDesc>
+    
+    <RimCord_EnableRichPresence>Rich Presence 활성화</RimCord_EnableRichPresence>
+    <RimCord_EnableRichPresenceDesc>Discord Rich Presence 통합의 메인 스위치</RimCord_EnableRichPresenceDesc>
+    
+    <RimCord_ShowColonyName>식민지 이름 표시</RimCord_ShowColonyName>
+    <RimCord_ShowColonyNameDesc>Discord 상태에 식민지 이름 표시</RimCord_ShowColonyNameDesc>
+    
+    <RimCord_ShowColonistCount>식민지 주민 수 표시</RimCord_ShowColonistCount>
+    <RimCord_ShowColonistCountDesc>현재 식민지 주민 수 표시</RimCord_ShowColonistCountDesc>
+    
+    <RimCord_ShowGameSpeed>게임 속도 표시</RimCord_ShowGameSpeed>
+    <RimCord_ShowGameSpeedDesc>현재 게임 속도 표시 (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
+    
+    <RimCord_ShowBiome>생물군계 표시</RimCord_ShowBiome>
+    <RimCord_ShowBiomeDesc>Discord 상태에 현재 생물군계 표시</RimCord_ShowBiomeDesc>
+    
+    <RimCord_ShowStorytellerIcon>스토리텔러 아이콘 표시</RimCord_ShowStorytellerIcon>
+    <RimCord_ShowStorytellerIconDesc>현재 스토리텔러(카산드라, 피비, 랜디 등)의 아이콘을 Discord 소형 이미지에 표시</RimCord_ShowStorytellerIconDesc>
+    
+    <RimCord_UpdateFrequency>업데이트 빈도</RimCord_UpdateFrequency>
+    <RimCord_Seconds>초</RimCord_Seconds>
+    
+    <RimCord_EnableCustomButton>사용자 정의 Discord 버튼 활성화</RimCord_EnableCustomButton>
+    <RimCord_EnableCustomButtonDesc>Rich Presence에 클릭 가능한 버튼 추가 (Twitch, Patreon 등)</RimCord_EnableCustomButtonDesc>
+    <RimCord_ButtonNote>주의: 버튼은 프로필을 보는 다른 사람들에게만 보이며, 본인에게는 보이지 않습니다.</RimCord_ButtonNote>
+    <RimCord_CustomButtonLabel>버튼 라벨 (최대 32자)</RimCord_CustomButtonLabel>
+    <RimCord_CustomButtonUrl>버튼 URL (https://로 시작해야 함)</RimCord_CustomButtonUrl>
+    <RimCord_UrlWarning>URL은 Discord 버튼에 유효하려면 https://로 시작해야 합니다</RimCord_UrlWarning>
+    
+    <!-- Status Messages -->
+    <RimCord_Status_Playing>RimWorld 플레이 중</RimCord_Status_Playing>
+    <RimCord_Status_PlayingRimWorld>RimWorld 플레이 중</RimCord_Status_PlayingRimWorld>
+    <RimCord_Status_Paused>게임 일시 중지됨</RimCord_Status_Paused>
+    
+    <!-- Activity Messages -->
+    <RimCord_Activity_Raid>공격받는 중!</RimCord_Activity_Raid>
+    <RimCord_Activity_MentalBreak>정신 붕괴 관리 중</RimCord_Activity_MentalBreak>
+    
+    <!-- Game Info -->
+    <RimCord_Colonist>식민지 주민</RimCord_Colonist>
+    <RimCord_Colonists>식민지 주민</RimCord_Colonists>
+    <RimCord_Year>년</RimCord_Year>
+    <RimCord_Speed>속도</RimCord_Speed>
+    
+    <!-- Menu -->
+    <RimCord_MainMenu>메인 메뉴</RimCord_MainMenu>
+    <RimCord_BrowsingMods>모드 및 설정 탐색 중</RimCord_BrowsingMods>
+    
+    <!-- Events -->
+    <RimCord_UnderAttack>공격받는 중!</RimCord_UnderAttack>
+    <RimCord_RaidBy>{0}의 습격</RimCord_RaidBy>
+    <RimCord_MentalBreak>정신 붕괴</RimCord_MentalBreak>
+    <RimCord_Event>이벤트</RimCord_Event>
+    
+    <!-- Mod Count -->
+    <RimCord_Mod>개 모드</RimCord_Mod>
+    <RimCord_Mods>개 모드</RimCord_Mods>
+</LanguageData>

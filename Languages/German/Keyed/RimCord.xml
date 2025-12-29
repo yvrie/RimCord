@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <!-- Settings -->
+    <RimCord_Settings_Header>RimCord Einstellungen</RimCord_Settings_Header>
+    <RimCord_Settings_HeaderDesc>Discord Rich Presence Integration für RimWorld konfigurieren</RimCord_Settings_HeaderDesc>
+    
+    <RimCord_EnableRichPresence>Rich Presence aktivieren</RimCord_EnableRichPresence>
+    <RimCord_EnableRichPresenceDesc>Hauptschalter für Discord Rich Presence Integration</RimCord_EnableRichPresenceDesc>
+    
+    <RimCord_ShowColonyName>Kolonie-Name anzeigen</RimCord_ShowColonyName>
+    <RimCord_ShowColonyNameDesc>Ihren Kolonie-Namen im Discord-Status anzeigen</RimCord_ShowColonyNameDesc>
+    
+    <RimCord_ShowColonistCount>Siedler-Anzahl anzeigen</RimCord_ShowColonistCount>
+    <RimCord_ShowColonistCountDesc>Aktuelle Anzahl der Siedler anzeigen</RimCord_ShowColonistCountDesc>
+    
+    <RimCord_ShowGameSpeed>Spielgeschwindigkeit anzeigen</RimCord_ShowGameSpeed>
+    <RimCord_ShowGameSpeedDesc>Aktuelle Spielgeschwindigkeit anzeigen (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
+    
+    <RimCord_ShowBiome>Biom anzeigen</RimCord_ShowBiome>
+    <RimCord_ShowBiomeDesc>Aktuelles Biom im Discord-Status anzeigen</RimCord_ShowBiomeDesc>
+    
+    <RimCord_ShowStorytellerIcon>Erzähler-Symbol anzeigen</RimCord_ShowStorytellerIcon>
+    <RimCord_ShowStorytellerIconDesc>Verwendet das kleine Discord-Bild für den aktuellen Erzähler (Cassandra, Phoebe, Randy oder modifiziert)</RimCord_ShowStorytellerIconDesc>
+    
+    <RimCord_UpdateFrequency>Aktualisierungsfrequenz</RimCord_UpdateFrequency>
+    <RimCord_Seconds>Sekunden</RimCord_Seconds>
+    
+    <RimCord_EnableCustomButton>Benutzerdefinierten Discord-Button aktivieren</RimCord_EnableCustomButton>
+    <RimCord_EnableCustomButtonDesc>Fügt einen anklickbaren Button zu deiner Rich Presence hinzu (Twitch, Patreon, etc.)</RimCord_EnableCustomButtonDesc>
+    <RimCord_ButtonNote>Hinweis: Buttons sind nur für andere sichtbar, die dein Profil ansehen, nicht für dich selbst.</RimCord_ButtonNote>
+    <RimCord_CustomButtonLabel>Button-Beschriftung (max 32 Zeichen)</RimCord_CustomButtonLabel>
+    <RimCord_CustomButtonUrl>Button-URL (muss mit https:// beginnen)</RimCord_CustomButtonUrl>
+    <RimCord_UrlWarning>URL muss mit https:// beginnen, um für Discord-Buttons gültig zu sein</RimCord_UrlWarning>
+    
+    <!-- Status Messages -->
+    <RimCord_Status_Playing>Spielt RimWorld</RimCord_Status_Playing>
+    <RimCord_Status_PlayingRimWorld>Spielt RimWorld</RimCord_Status_PlayingRimWorld>
+    <RimCord_Status_Paused>Spiel pausiert</RimCord_Status_Paused>
+    
+    <!-- Activity Messages -->
+    <RimCord_Activity_Raid>WIRD ANGEGRIFFEN!</RimCord_Activity_Raid>
+    <RimCord_Activity_MentalBreak>Verwaltet Nervenzusammenbrüche</RimCord_Activity_MentalBreak>
+    
+    <!-- Game Info -->
+    <RimCord_Colonist>Siedler</RimCord_Colonist>
+    <RimCord_Colonists>Siedler</RimCord_Colonists>
+    <RimCord_Year>Jahr</RimCord_Year>
+    <RimCord_Speed>Geschwindigkeit</RimCord_Speed>
+    
+    <!-- Menu -->
+    <RimCord_MainMenu>Hauptmenü</RimCord_MainMenu>
+    <RimCord_BrowsingMods>Mods und Einstellungen durchsuchen</RimCord_BrowsingMods>
+    
+    <!-- Events -->
+    <RimCord_UnderAttack>WIRD ANGEGRIFFEN</RimCord_UnderAttack>
+    <RimCord_RaidBy>Überfall von {0}</RimCord_RaidBy>
+    <RimCord_MentalBreak>Nervenzusammenbruch</RimCord_MentalBreak>
+    <RimCord_Event>Ereignis</RimCord_Event>
+    
+    <!-- Mod Count -->
+    <RimCord_Mod>Mod</RimCord_Mod>
+    <RimCord_Mods>Mods</RimCord_Mods>
+</LanguageData>
