@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>Pokaż liczbę kolonistów</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Wyświetl aktualną liczbę kolonistów</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>Pokaż prędkość gry</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>Wyświetl aktualną prędkość gry (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>Pokaż biom</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Wyświetl aktualny biom w statusie Discord</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>Pokaż ikonę narratora</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Użyj małej grafiki Discord dla bieżącego narratora (Cassandra, Phoebe, Randy lub z modów)</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>Częstotliwość aktualizacji</RimCord_UpdateFrequency>
-    <RimCord_Seconds>sekund</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>Włącz niestandardowy przycisk Discord</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Dodaje klikalny przycisk do Rich Presence (Twitch, Patreon, itp.)</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>kolonista</RimCord_Colonist>
     <RimCord_Colonists>kolonistów</RimCord_Colonists>
     <RimCord_Year>Rok</RimCord_Year>
-    <RimCord_Speed>prędkość</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>Menu Główne</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>mod</RimCord_Mod>
     <RimCord_Mods>modów</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>Aktualnie planuje</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>Pauza: Wylądowali w środku!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>Pauza: Planowanie kontrataku</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>Pauza: Ignorują killbox</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>Pauza: Przywieźli moździerze</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>Pauza: Zagrożenie mechanoidalne</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>Pauza: {0} atakuje</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>Pauza: Pod atakiem</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>Pauza: {0} ma {1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>Pauza: Bez prądu (Rozbłysk Słoneczny)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>Pauza: Lockdown (Opad Toksyczny)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>Pauza: W ciemności (Zaćmienie)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>Pauza: Podziwianie Zorzy</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>Pauza: Ochładzanie (Fala Upałów)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>Pauza: Ogrzewanie (Fala Mrozów)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>Pauza: Zima Wulkaniczna</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>Pauza: Burza błyskawic</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>Pauza: Negocjacje z handlarzami orbitalnymi</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>Pauza: Analizowanie ofert</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>Pauza: Nocna zmiana</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>Pauza: Burzowa pogoda</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>Pauza: Zamrożone pustkowie</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>Pauza: Słaba widoczność</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>Pauza: Spokojna produkcja</RimCord_Paused_Peaceful>
 </LanguageData>
+

@@ -81,16 +81,17 @@
     <Compile Include="GameState\ActivityDetector.cs" />
     <Compile Include="GameState\RaidTracker.cs" />
     <Compile Include="GameState\MentalBreakTracker.cs" />
-    <Compile Include="GameState\SpeedInfo.cs" />
     <Compile Include="GameState\GameConditionInfo.cs" />
     <Compile Include="GameState\LetterEventTracker.cs" />
     <Compile Include="GameState\PresenceEventQueue.cs" />
     <Compile Include="GameState\StorytellerInfo.cs" />
+    <Compile Include="GameState\PausedContextBuilder.cs" />
     <Compile Include="Settings\RimCordSettings.cs" />
     <Compile Include="HarmonyPatches\GameTickPatch.cs" />
     <Compile Include="HarmonyPatches\RaidIncidentPatch.cs" />
     <Compile Include="HarmonyPatches\MainMenuPatch.cs" />
     <Compile Include="HarmonyPatches\RootShutdownPatch.cs" />
+    <Compile Include="HarmonyPatches\PauseTogglePatch.cs" />
     <Compile Include="RimCordLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

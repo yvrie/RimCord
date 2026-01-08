@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>식민지 주민 수 표시</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>현재 식민지 주민 수 표시</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>게임 속도 표시</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>현재 게임 속도 표시 (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>생물군계 표시</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Discord 상태에 현재 생물군계 표시</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>스토리텔러 아이콘 표시</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>현재 스토리텔러(카산드라, 피비, 랜디 등)의 아이콘을 Discord 소형 이미지에 표시</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>업데이트 빈도</RimCord_UpdateFrequency>
-    <RimCord_Seconds>초</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>사용자 정의 Discord 버튼 활성화</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Rich Presence에 클릭 가능한 버튼 추가 (Twitch, Patreon 등)</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>식민지 주민</RimCord_Colonist>
     <RimCord_Colonists>식민지 주민</RimCord_Colonists>
     <RimCord_Year>년</RimCord_Year>
-    <RimCord_Speed>속도</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>메인 메뉴</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>개 모드</RimCord_Mod>
     <RimCord_Mods>개 모드</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>계획 중</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>일시정지: 내부에 착륙!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>일시정지: 반격 계획 중</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>일시정지: 킬박스 무시</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>일시정지: 박격포 보유</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>일시정지: 메카노이드 위협</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>일시정지: {0} 공격 중</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>일시정지: 공격받는 중</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>일시정지: {0}이(가) {1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>일시정지: 정전 (태양 플레어)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>일시정지: 격리 (독성 낙진)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>일시정지: 어둠 속에서 (일식)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>일시정지: 오로라 감상</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>일시정지: 냉각 중 (폭염)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>일시정지: 난방 중 (한파)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>일시정지: 화산 겨울</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>일시정지: 번개 폭풍</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>일시정지: 궤도 상인과 거래 중</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>일시정지: 거래 분석 중</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>일시정지: 야간 근무</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>일시정지: 폭풍우 날씨</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>일시정지: 얼어붙은 황야</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>일시정지: 시야 불량</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>일시정지: 평화로운 생산</RimCord_Paused_Peaceful>
 </LanguageData>
+

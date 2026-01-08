@@ -14,7 +14,7 @@ namespace RimCord.HarmonyPatches
         private static int errorCount;
         private const int MaxErrorsBeforeDisable = 10;
         private static int lastUpdateTick;
-        private const int UpdateIntervalTicks = 120;
+        private const int UpdateIntervalTicks = 900; // 15 seconds at normal speed
 
         [HarmonyPostfix]
         public static void Postfix()

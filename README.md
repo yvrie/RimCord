@@ -12,10 +12,36 @@
 
 ---
 
+## Preview
+
+<div align="center">
+<table>
+<tr>
+<td align="center"><b>Main Menu</b></td>
+<td align="center"><b>Raid Alert</b></td>
+</tr>
+<tr>
+<td><img src="preview/Discord_menu.png" width="280" alt="Main menu showing mod count"></td>
+<td><img src="preview/Discord_raid.png" width="280" alt="Raid alert with faction name"></td>
+</tr>
+<tr>
+<td align="center"><b>Mental Break</b></td>
+<td align="center"><b>Paused</b></td>
+</tr>
+<tr>
+<td><img src="preview/Discord_mentalbreak.png" width="280" alt="Mental break with pawn name"></td>
+<td><img src="preview/Discord_paused.png" width="280" alt="Paused with context info"></td>
+</tr>
+</table>
+</div>
+
+---
+
 ## What is this?
 
 RimCord adds Discord Rich Presence to RimWorld. Your friends can see what colony you're running, how many colonists you have, and when things go horribly wrong (raids, mental breaks).
-
+> [!NOTE]
+> Discord has rate limit of one update per 15 seconds, if too many events happen at once, it will update with most recent event.
 ---
 
 ## Features
@@ -23,6 +49,12 @@ RimCord adds Discord Rich Presence to RimWorld. Your friends can see what colony
 **Colony Info** - Shows your colony name, colonist count, current year, and biome right in your Discord status.
 
 **Live Events** - When a raid hits or someone has a mental break, your status updates automatically. Your friends will know exactly when to send thoughts and prayers.
+
+**Context-Aware Pause** - When you pause, your status shows what you're dealing with:
+- Raids: *"Paused: Planning counter-attack"*
+- Mental breaks: *"Paused: Val is Berserk"*
+- Traders: *"Paused: Haggling with orbital traders"*
+- Weather: *"Paused: Frozen wasteland"*
 
 **Mod Count** - In the main menu, it shows how many mods you're running. Because we all know that number is way too high.
 
@@ -46,7 +78,6 @@ Find them in **Options > Mod Settings > RimCord**
 You can toggle what shows up in your status:
 - Colony name
 - Colonist count (shows as party size)
-- Game speed
 - Biome
 - Storyteller icon
 - Custom button (add your Twitch or whatever)

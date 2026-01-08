@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>Показывать количество колонистов</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Отображать текущее количество колонистов</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>Показывать скорость игры</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>Отображать текущую скорость игры (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>Показывать биом</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Отображать текущий биом в статусе Discord</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>Показывать иконку рассказчика</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Использовать маленькое изображение Discord для текущего рассказчика (Кассандра, Фиби, Рэнди или моды)</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>Частота обновления</RimCord_UpdateFrequency>
-    <RimCord_Seconds>секунд</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>Включить пользовательскую кнопку Discord</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Добавляет кликабельную кнопку в Rich Presence (Twitch, Patreon и т.д.)</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>колонист</RimCord_Colonist>
     <RimCord_Colonists>колонистов</RimCord_Colonists>
     <RimCord_Year>Год</RimCord_Year>
-    <RimCord_Speed>скорость</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>Главное Меню</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>мод</RimCord_Mod>
     <RimCord_Mods>модов</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>Планирование</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>Пауза: Они высадились внутри!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>Пауза: Планирование контратаки</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>Пауза: Они игнорируют killbox</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>Пауза: Они привезли мортиры</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>Пауза: Угроза механоидов</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>Пауза: {0} атакует</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>Пауза: Под атакой</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>Пауза: {0} в состоянии {1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>Пауза: Без электричества (Солнечная вспышка)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>Пауза: Карантин (Токсичные осадки)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>Пауза: В темноте (Затмение)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>Пауза: Любуемся Авророй</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>Пауза: Охлаждение (Жара)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>Пауза: Согревание (Холод)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>Пауза: Вулканическая зима</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>Пауза: Грозовой шторм</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>Пауза: Торговля с орбитальными торговцами</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>Пауза: Анализ предложений</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>Пауза: Ночная смена</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>Пауза: Ненастная погода</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>Пауза: Замерзшая пустошь</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>Пауза: Плохая видимость</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>Пауза: Мирное производство</RimCord_Paused_Peaceful>
 </LanguageData>
+

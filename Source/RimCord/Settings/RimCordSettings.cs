@@ -8,10 +8,10 @@ namespace RimCord
         public bool EnableRichPresence = true;
         public bool ShowColonyName = true;
         public bool ShowColonistCount = true;
-        public bool ShowGameSpeed = false;
+
         public bool ShowBiome = false;
         public bool ShowStorytellerIcon = true;
-        public int UpdateFrequency = 5;
+
         public bool EnableCustomButton = false;
         public string CustomButtonLabel = "Watch live";
         public string CustomButtonUrl = string.Empty;
@@ -22,10 +22,10 @@ namespace RimCord
             Scribe_Values.Look(ref EnableRichPresence, "EnableRichPresence", true);
             Scribe_Values.Look(ref ShowColonyName, "ShowColonyName", true);
             Scribe_Values.Look(ref ShowColonistCount, "ShowColonistCount", true);
-            Scribe_Values.Look(ref ShowGameSpeed, "ShowGameSpeed", false);
+
             Scribe_Values.Look(ref ShowBiome, "ShowBiome", false);
             Scribe_Values.Look(ref ShowStorytellerIcon, "ShowStorytellerIcon", true);
-            Scribe_Values.Look(ref UpdateFrequency, "UpdateFrequency", 5);
+
             Scribe_Values.Look(ref EnableCustomButton, "EnableCustomButton", false);
             Scribe_Values.Look(ref CustomButtonLabel, "CustomButtonLabel", "Watch live");
             Scribe_Values.Look(ref CustomButtonUrl, "CustomButtonUrl", string.Empty);
@@ -64,8 +64,7 @@ namespace RimCord
                 listing.Gap(6f);
                 listing.CheckboxLabeled("RimCord_ShowColonistCount".Translate(), ref ShowColonistCount, "RimCord_ShowColonistCountDesc".Translate());
                 
-                listing.Gap(6f);
-                listing.CheckboxLabeled("RimCord_ShowGameSpeed".Translate(), ref ShowGameSpeed, "RimCord_ShowGameSpeedDesc".Translate());
+
                 
                 listing.Gap(6f);
                 listing.CheckboxLabeled("RimCord_ShowBiome".Translate(), ref ShowBiome, "RimCord_ShowBiomeDesc".Translate());
@@ -73,12 +72,7 @@ namespace RimCord
                 listing.Gap(6f);
                 listing.CheckboxLabeled("RimCord_ShowStorytellerIcon".Translate(), ref ShowStorytellerIcon, "RimCord_ShowStorytellerIconDesc".Translate());
                 
-                listing.Gap(12f);
 
-                listing.Label(string.Format("{0}: {1} {2}", "RimCord_UpdateFrequency".Translate(), UpdateFrequency, "RimCord_Seconds".Translate()));
-                UpdateFrequency = (int)listing.Slider(UpdateFrequency, 1, 10);
-
-                listing.Gap(6f);
 
                 listing.CheckboxLabeled("RimCord_EnableCustomButton".Translate(), ref EnableCustomButton, "RimCord_EnableCustomButtonDesc".Translate());
                 if (EnableCustomButton)
@@ -106,10 +100,7 @@ namespace RimCord
                     listing.Gap(6f);
                 }
 
-                if (RimCordMod.PresenceManager != null)
-                {
-                    RimCordMod.PresenceManager.UpdateInterval = UpdateFrequency;
-                }
+
             }
 
             settingsViewHeight = Math.Max(listing.CurHeight + 12f, inRect.height);
@@ -123,8 +114,6 @@ namespace RimCord
 
             if (RimCordMod.PresenceManager != null)
             {
-                RimCordMod.PresenceManager.UpdateInterval = UpdateFrequency;
-                
                 if (!EnableRichPresence)
                 {
                     RimCordMod.PresenceManager.Shutdown();

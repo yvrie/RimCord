@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>显示殖民者数量</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>显示当前殖民者数量</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>显示游戏速度</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>显示当前游戏速度（1x、2x、3x、4x）</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>显示生物群系</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>在 Discord 状态中显示当前生物群系</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>显示叙述者图标</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>将 Discord 的小图标用于当前叙述者（卡桑德拉、菲比、兰迪或模组）</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>更新频率</RimCord_UpdateFrequency>
-    <RimCord_Seconds>秒</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>启用自定义Discord按钮</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>在Rich Presence中添加可点击的按钮（Twitch、Patreon等）</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>殖民者</RimCord_Colonist>
     <RimCord_Colonists>殖民者</RimCord_Colonists>
     <RimCord_Year>年</RimCord_Year>
-    <RimCord_Speed>速度</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>主菜单</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>个模组</RimCord_Mod>
     <RimCord_Mods>个模组</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>正在规划</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>暂停: 他们降落在室内!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>暂停: 规划反击</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>暂停: 他们无视防御工事</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>暂停: 他们带来了迫击炮</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>暂停: 机械体威胁</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>暂停: {0}正在进攻</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>暂停: 遭受袭击</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>暂停: {0}正在{1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>暂停: 无电力 (太阳耀斑)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>暂停: 封锁 (毒尘)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>暂停: 黑暗中 (日食)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>暂停: 欣赏极光</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>暂停: 降温中 (热浪)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>暂停: 取暖中 (寒流)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>暂停: 火山冬天</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>暂停: 闪电风暴来袭</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>暂停: 与轨道商人交易</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>暂停: 分析交易</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>暂停: 夜班</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>暂停: 暴风雨天气</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>暂停: 冰封荒野</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>暂停: 能见度低</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>暂停: 和平生产</RimCord_Paused_Peaceful>
 </LanguageData>
+

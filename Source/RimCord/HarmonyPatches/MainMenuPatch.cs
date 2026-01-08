@@ -9,7 +9,7 @@ namespace RimCord.HarmonyPatches
     internal static class MenuPresenceUpdater
     {
         private static float lastUpdateTime;
-        private const float UpdateInterval = 5f;
+        private const float UpdateInterval = 15f;
         private static bool initialized;
 
         public static void Initialize()
@@ -73,4 +73,40 @@ namespace RimCord.HarmonyPatches
         [HarmonyPostfix]
         public static void Postfix() => MenuPresenceUpdater.TryUpdateMenuPresence();
     }
+
+    [HarmonyPatch(typeof(UIRoot_Play), nameof(UIRoot_Play.UIRootOnGUI))]
+    public static class UIRootPlayOnGUIPatch
+    {
+        private static float lastUpdateTime;
+        private const float UpdateInterval = 15f;
+
+        [HarmonyPostfix]
+        public static void Postfix()
+        {
+            try
+            {
+                float currentTime = UnityEngine.Time.realtimeSinceStartup;
+                if (currentTime - lastUpdateTime < UpdateInterval)
+                    return;
+                lastUpdateTime = currentTime;
+
+                if (RimCordMod.Settings == null || !RimCordMod.Settings.EnableRichPresence)
+                    return;
+
+                if (Current.ProgramState != ProgramState.Playing)
+                    return;
+
+                var presenceManager = RimCordMod.PresenceManager;
+                if (presenceManager == null || presenceManager.IsDisposed)
+                    return;
+
+                presenceManager.Update();
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("UIRootPlayOnGUI presence error: {0}", ex.Message);
+            }
+        }
+    }
 }
+

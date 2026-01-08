@@ -15,6 +15,16 @@ namespace RimCord
 
         internal static string BuildState(ActivityInfo activity, bool inGame, Func<(string State, string Details)?> recentEventProvider)
         {
+
+            try
+            {
+                if (inGame && Find.TickManager != null && Find.TickManager.Paused)
+                {
+                    return RimCordText.SafeTranslate(RimCordText.StatusPaused);
+                }
+            }
+            catch { }
+
             bool isQueuedEvent = activity != null && string.Equals(activity.Activity, "QueuedEvent", StringComparison.Ordinal);
             bool isGameCondition = activity != null && string.Equals(activity.Activity, "GameCondition", StringComparison.Ordinal);
 
@@ -29,7 +39,7 @@ namespace RimCord
                 return LimitPresenceText(SanitizePresenceText(activity.StateOverride));
             }
 
-            // if theres no current activity, show the last event instead
+            // no active event, check for recent events
             if (activity == null)
             {
                 string recentEventState = GetRecentEventStateLine(recentEventProvider);
@@ -48,7 +58,7 @@ namespace RimCord
             {
                 if (activity.Activity == "Raid" && activity.IsUrgent)
                 {
-                    // show who's attacking if we know, otherwise just generic warning
+
                     if (!string.IsNullOrEmpty(activity.RaidFactionName))
                     {
                         return string.Format("RimCord_RaidBy".Translate(), activity.RaidFactionName);
@@ -70,16 +80,21 @@ namespace RimCord
                 }
             }
 
-            if (Find.TickManager != null && Find.TickManager.Paused)
-            {
-                return RimCordText.StatusPaused.Translate();
-            }
-
-            return RimCordText.StatusPlaying.Translate();
+            return RimCordText.SafeTranslate(RimCordText.StatusPlaying);
         }
 
         internal static string BuildDetails(ActivityInfo activity, bool inGame, RimCordSettings settings, Func<(string State, string Details)?> recentEventProvider)
         {
+
+            try
+            {
+                if (inGame && Find.TickManager != null && Find.TickManager.Paused)
+                {
+                    return PausedContextBuilder.GetPausedDetails();
+                }
+            }
+            catch { }
+
             bool isQueuedEvent = activity != null && string.Equals(activity.Activity, "QueuedEvent", StringComparison.Ordinal);
             bool isGameCondition = activity != null && string.Equals(activity.Activity, "GameCondition", StringComparison.Ordinal);
 
@@ -92,13 +107,25 @@ namespace RimCord
             {
                 try
                 {
+                    // Don't try to translate during early startup when language database isn't ready
+                    if (LanguageDatabase.activeLanguage == null)
+                    {
+                        return "Browsing mods and settings";
+                    }
+                    
                     int modCount = ModsConfig.ActiveModsInLoadOrder
                         .Count(m => m != null && !m.Official && !m.PackageId.StartsWith("ludeon.", StringComparison.OrdinalIgnoreCase));
                     if (modCount > 0)
                     {
-                        string modText = modCount == 1 
-                            ? "RimCord_Mod".Translate() 
-                            : "RimCord_Mods".Translate();
+                        string modText = modCount == 1 ? "mod" : "mods";
+                        try
+                        {
+                            modText = modCount == 1 
+                                ? "RimCord_Mod".Translate().ToString() 
+                                : "RimCord_Mods".Translate().ToString();
+                        }
+                        catch { }
+                        
                         return string.Format("{0} ({1} {2})", 
                             RimCordText.SafeTranslate(RimCordText.BrowsingMods),
                             modCount,
@@ -134,13 +161,6 @@ namespace RimCord
                 string biome = WorldInfo.GetBiomeName();
                 if (!string.IsNullOrEmpty(biome))
                     detailsParts.Add(biome);
-            }
-
-            if (settings.ShowGameSpeed)
-            {
-                string speed = SpeedInfo.GetSpeedMultiplier();
-                if (!string.IsNullOrEmpty(speed) && !string.Equals(speed, "Paused", StringComparison.OrdinalIgnoreCase))
-                    detailsParts.Add(string.Format("{0} {1}", speed, RimCordText.Speed.Translate()));
             }
 
             string joinedParts = detailsParts.Count > 0 ? string.Join(" | ", detailsParts) : null;
@@ -365,18 +385,17 @@ namespace RimCord
         internal const string StatusPlaying = "RimCord_Status_Playing";
         internal const string StatusPlayingRimWorld = "RimCord_Status_PlayingRimWorld";
         internal const string Year = "RimCord_Year";
-        internal const string Speed = "RimCord_Speed";
+
         internal const string MainMenu = "RimCord_MainMenu";
         internal const string BrowsingMods = "RimCord_BrowsingMods";
 
-        // fallbacks incase the translation system hasnt loaded yet
         private static readonly System.Collections.Generic.Dictionary<string, string> Fallbacks = new System.Collections.Generic.Dictionary<string, string>
         {
             { StatusPaused, "Game Paused" },
             { StatusPlaying, "Playing RimWorld" },
             { StatusPlayingRimWorld, "Playing RimWorld" },
             { Year, "Year" },
-            { Speed, "speed" },
+
             { MainMenu, "Main Menu" },
             { BrowsingMods, "Browsing mods and settings" }
         };

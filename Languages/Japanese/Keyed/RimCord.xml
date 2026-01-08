@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>入植者数を表示</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>現在の入植者数を表示</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>ゲーム速度を表示</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>現在のゲーム速度を表示（1x、2x、3x、4x）</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>バイオームを表示</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Discord ステータスに現在のバイオームを表示</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>語り手アイコンを表示</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Discord の小さい画像を現在の語り手（カサンドラ、フィービー、ランディ、またはMOD）に合わせて表示</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>更新頻度</RimCord_UpdateFrequency>
-    <RimCord_Seconds>秒</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>カスタムDiscordボタンを有効化</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Rich Presenceにクリック可能なボタンを追加（Twitch、Patreonなど）</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>入植者</RimCord_Colonist>
     <RimCord_Colonists>入植者</RimCord_Colonists>
     <RimCord_Year>年</RimCord_Year>
-    <RimCord_Speed>速度</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>メインメニュー</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>MOD</RimCord_Mod>
     <RimCord_Mods>MOD</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>計画中</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>一時停止: 内部に落下!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>一時停止: 反撃を計画中</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>一時停止: 防衛線を無視</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>一時停止: 迫撃砲を持参</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>一時停止: メカノイドの脅威</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>一時停止: {0}が攻撃中</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>一時停止: 攻撃を受けている</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>一時停止: {0}が{1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>一時停止: 停電中 (太陽フレア)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>一時停止: ロックダウン (毒性粉塵)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>一時停止: 暗闇の中 (日食)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>一時停止: オーロラを鑑賞</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>一時停止: 冷却中 (熱波)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>一時停止: 暖房中 (寒波)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>一時停止: 火山の冬</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>一時停止: 雷嵐接近</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>一時停止: 軌道商人と取引中</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>一時停止: 取引を分析中</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>一時停止: 夜勤</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>一時停止: 嵐の天気</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>一時停止: 凍てつく荒野</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>一時停止: 視界不良</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>一時停止: 平和な生産</RimCord_Paused_Peaceful>
 </LanguageData>
+

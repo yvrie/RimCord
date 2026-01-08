@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
     <RimCord_Settings_Header>RimCord Settings</RimCord_Settings_Header>
@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>Show Colonist Count</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Display current number of colonists</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>Show Game Speed</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>Display current game speed (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>Show Biome</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Display current biome in Discord status</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>Show Storyteller Icon</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Use the Discord small image slot for the current storyteller (Cassandra, Phoebe, Randy, or modded)</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>Update Frequency</RimCord_UpdateFrequency>
-    <RimCord_Seconds>seconds</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>Enable custom Discord button</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Adds a clickable button to your Rich Presence (Twitch, Patreon, etc.)</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>Colonist</RimCord_Colonist>
     <RimCord_Colonists>Colonists</RimCord_Colonists>
     <RimCord_Year>Year</RimCord_Year>
-    <RimCord_Speed>speed</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>Main Menu</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>mod</RimCord_Mod>
     <RimCord_Mods>mods</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>Currently planning</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>Paused: They dropped inside!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>Paused: Planning counter-attack</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>Paused: They're ignoring the killbox</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>Paused: They brought mortars</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>Paused: Mechanoid threat</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>Paused: {0} is attacking</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>Paused: Under attack</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>Paused: {0} is {1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>Paused: Powerless (Solar Flare)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>Paused: Lockdown (Toxic Fallout)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>Paused: In the dark (Eclipse)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>Paused: Admiring the Aurora</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>Paused: Cooling off (Heat Wave)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>Paused: Staying warm (Cold Snap)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>Paused: Volcanic Winter</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>Paused: Flashstorm incoming</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>Paused: Haggling with orbital traders</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>Paused: Analyzing trade deals</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>Paused: The night shift</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>Paused: Stormy weather</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>Paused: Frozen wasteland</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>Paused: Low visibility</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>Paused: Peaceful production</RimCord_Paused_Peaceful>
 </LanguageData>
+

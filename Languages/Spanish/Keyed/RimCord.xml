@@ -13,8 +13,6 @@
     <RimCord_ShowColonistCount>Mostrar número de colonos</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Mostrar el número actual de colonos</RimCord_ShowColonistCountDesc>
     
-    <RimCord_ShowGameSpeed>Mostrar velocidad de juego</RimCord_ShowGameSpeed>
-    <RimCord_ShowGameSpeedDesc>Muestra la velocidad actual del juego (1x, 2x, 3x, 4x)</RimCord_ShowGameSpeedDesc>
     
     <RimCord_ShowBiome>Mostrar bioma</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Muestra el bioma actual en el estado de Discord</RimCord_ShowBiomeDesc>
@@ -22,8 +20,6 @@
     <RimCord_ShowStorytellerIcon>Mostrar icono del narrador</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Usa la imagen pequeña de Discord para el narrador actual (Cassandra, Phoebe, Randy o modded)</RimCord_ShowStorytellerIconDesc>
     
-    <RimCord_UpdateFrequency>Frecuencia de actualización</RimCord_UpdateFrequency>
-    <RimCord_Seconds>segundos</RimCord_Seconds>
     
     <RimCord_EnableCustomButton>Activar botón personalizado de Discord</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Añade un botón clicable a tu Rich Presence (Twitch, Patreon, etc.)</RimCord_EnableCustomButtonDesc>
@@ -45,7 +41,6 @@
     <RimCord_Colonist>colono</RimCord_Colonist>
     <RimCord_Colonists>colonos</RimCord_Colonists>
     <RimCord_Year>Año</RimCord_Year>
-    <RimCord_Speed>velocidad</RimCord_Speed>
     
     <!-- Menu -->
     <RimCord_MainMenu>Menú Principal</RimCord_MainMenu>
@@ -60,4 +55,31 @@
     <!-- Mod Count -->
     <RimCord_Mod>mod</RimCord_Mod>
     <RimCord_Mods>mods</RimCord_Mods>
+    
+    <!-- Paused Context -->
+    <RimCord_Paused_Planning>Planificando</RimCord_Paused_Planning>
+    <RimCord_Paused_Raid_Interior>Pausado: ¡Cayeron adentro!</RimCord_Paused_Raid_Interior>
+    <RimCord_Paused_Raid_Assault>Pausado: Planeando contraataque</RimCord_Paused_Raid_Assault>
+    <RimCord_Paused_Raid_Sappers>Pausado: Ignoran la killbox</RimCord_Paused_Raid_Sappers>
+    <RimCord_Paused_Raid_Siege>Pausado: Trajeron morteros</RimCord_Paused_Raid_Siege>
+    <RimCord_Paused_Raid_Mechanoid>Pausado: Amenaza mecanoide</RimCord_Paused_Raid_Mechanoid>
+    <RimCord_Paused_Raid_Generic>Pausado: {0} está atacando</RimCord_Paused_Raid_Generic>
+    <RimCord_Paused_Raid_Default>Pausado: Bajo ataque</RimCord_Paused_Raid_Default>
+    <RimCord_Paused_MentalBreak>Pausado: {0} está {1}</RimCord_Paused_MentalBreak>
+    <RimCord_Paused_SolarFlare>Pausado: Sin energía (Erupción Solar)</RimCord_Paused_SolarFlare>
+    <RimCord_Paused_ToxicFallout>Pausado: Confinamiento (Lluvia Tóxica)</RimCord_Paused_ToxicFallout>
+    <RimCord_Paused_Eclipse>Pausado: En la oscuridad (Eclipse)</RimCord_Paused_Eclipse>
+    <RimCord_Paused_Aurora>Pausado: Admirando la Aurora</RimCord_Paused_Aurora>
+    <RimCord_Paused_HeatWave>Pausado: Enfriándose (Ola de Calor)</RimCord_Paused_HeatWave>
+    <RimCord_Paused_ColdSnap>Pausado: Manteniéndose caliente (Ola de Frío)</RimCord_Paused_ColdSnap>
+    <RimCord_Paused_VolcanicWinter>Pausado: Invierno Volcánico</RimCord_Paused_VolcanicWinter>
+    <RimCord_Paused_Flashstorm>Pausado: Tormenta eléctrica</RimCord_Paused_Flashstorm>
+    <RimCord_Paused_OrbitalTrader>Pausado: Negociando con comerciantes orbitales</RimCord_Paused_OrbitalTrader>
+    <RimCord_Paused_CaravanTrader>Pausado: Analizando ofertas</RimCord_Paused_CaravanTrader>
+    <RimCord_Paused_NightShift>Pausado: Turno de noche</RimCord_Paused_NightShift>
+    <RimCord_Paused_Rain>Pausado: Clima tormentoso</RimCord_Paused_Rain>
+    <RimCord_Paused_Snow>Pausado: Páramo helado</RimCord_Paused_Snow>
+    <RimCord_Paused_Fog>Pausado: Baja visibilidad</RimCord_Paused_Fog>
+    <RimCord_Paused_Peaceful>Pausado: Producción pacífica</RimCord_Paused_Peaceful>
 </LanguageData>
+

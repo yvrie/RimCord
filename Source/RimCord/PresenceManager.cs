@@ -14,8 +14,6 @@ namespace RimCord
         private Task<bool> connectAttemptTask;
         private readonly object syncLock = new object();
         private volatile bool isDisposed;
-        
-        private int updateIntervalTicks = 60;
         private string lastPresenceState = string.Empty;
         private string lastPresenceDetails = string.Empty;
         private string lastImageKey = string.Empty;
@@ -34,23 +32,9 @@ namespace RimCord
         public PresenceManager()
         {
             discordIPC = new DiscordIPC();
-            UpdateInterval = 10;
         }
 
         public bool IsDisposed => isDisposed;
-
-
-        public int UpdateInterval
-        {
-            get
-            {
-                return updateIntervalTicks / 60;
-            }
-            set
-            {
-                updateIntervalTicks = Math.Max(60, Math.Min(600, value * 60));
-            }
-        }
 
         public void Initialize()
         {
@@ -192,7 +176,8 @@ namespace RimCord
                         || isPaused != lastPausedState
                         || currentStorytellerKey != lastStorytellerKey
                         || currentStorytellerText != lastStorytellerText
-                        || currentColonistCount != lastColonistCount;
+                        || currentColonistCount != lastColonistCount
+                        || isPaused;
                     
                     if (!stateChanged && !justReconnected)
                     {
@@ -300,7 +285,11 @@ namespace RimCord
             string finalState = state;
             string finalDetails = details;
 
-            if (inGame && activity != null && activity.IsUrgent)
+
+            bool isPaused = false;
+            try { isPaused = Find.TickManager?.Paused ?? false; } catch { }
+
+            if (inGame && activity != null && activity.IsUrgent && !isPaused)
             {
                 if (activity.Activity == "Raid")
                 {
