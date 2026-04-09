@@ -48,7 +48,7 @@ RimCord adds Discord Rich Presence to RimWorld. Your friends can see what colony
 
 **Colony Info** - Shows your colony name, colonist count, current year, and biome right in your Discord status.
 
-**Live Events** - When a raid hits or someone has a mental break, your status updates automatically. Your friends will know exactly when to send thoughts and prayers.
+**Live Events** - Raids, mental breaks, letters, and map conditions can update your status automatically. You can toggle letter events, threat alerts, and game conditions separately.
 
 **Context-Aware Pause** - When you pause, your status shows what you're dealing with:
 - Raids: *"Paused: Planning counter-attack"*
@@ -80,6 +80,9 @@ You can toggle what shows up in your status:
 - Colonist count (shows as party size)
 - Biome
 - Storyteller icon
+- Letter events
+- Threat alerts (raids + mental breaks)
+- Game conditions
 - Custom button (add your Twitch or whatever)
 
 ---

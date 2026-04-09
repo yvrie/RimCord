@@ -90,7 +90,7 @@ namespace RimCord
             {
                 if (inGame && Find.TickManager != null && Find.TickManager.Paused)
                 {
-                    return PausedContextBuilder.GetPausedDetails();
+                    return PausedContextBuilder.GetPausedDetails(settings);
                 }
             }
             catch { }

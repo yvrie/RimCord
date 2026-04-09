@@ -1,4 +1,5 @@
 using System;
+using RimCord.GameState;
 using Verse;
 
 namespace RimCord
@@ -11,6 +12,9 @@ namespace RimCord
 
         public bool ShowBiome = false;
         public bool ShowStorytellerIcon = true;
+        public bool ShowLetterEvents = true;
+        public bool ShowThreatAlerts = true;
+        public bool ShowGameConditions = true;
 
         public bool EnableCustomButton = false;
         public string CustomButtonLabel = "Watch live";
@@ -25,6 +29,9 @@ namespace RimCord
 
             Scribe_Values.Look(ref ShowBiome, "ShowBiome", false);
             Scribe_Values.Look(ref ShowStorytellerIcon, "ShowStorytellerIcon", true);
+            Scribe_Values.Look(ref ShowLetterEvents, "ShowLetterEvents", true);
+            Scribe_Values.Look(ref ShowThreatAlerts, "ShowThreatAlerts", true);
+            Scribe_Values.Look(ref ShowGameConditions, "ShowGameConditions", true);
 
             Scribe_Values.Look(ref EnableCustomButton, "EnableCustomButton", false);
             Scribe_Values.Look(ref CustomButtonLabel, "CustomButtonLabel", "Watch live");
@@ -72,7 +79,14 @@ namespace RimCord
                 listing.Gap(6f);
                 listing.CheckboxLabeled("RimCord_ShowStorytellerIcon".Translate(), ref ShowStorytellerIcon, "RimCord_ShowStorytellerIconDesc".Translate());
                 
+                listing.Gap(6f);
+                listing.CheckboxLabeled("RimCord_ShowLetterEvents".Translate(), ref ShowLetterEvents, "RimCord_ShowLetterEventsDesc".Translate());
 
+                listing.Gap(6f);
+                listing.CheckboxLabeled("RimCord_ShowThreatAlerts".Translate(), ref ShowThreatAlerts, "RimCord_ShowThreatAlertsDesc".Translate());
+
+                listing.Gap(6f);
+                listing.CheckboxLabeled("RimCord_ShowGameConditions".Translate(), ref ShowGameConditions, "RimCord_ShowGameConditionsDesc".Translate());
 
                 listing.CheckboxLabeled("RimCord_EnableCustomButton".Translate(), ref EnableCustomButton, "RimCord_EnableCustomButtonDesc".Translate());
                 if (EnableCustomButton)
@@ -112,6 +126,16 @@ namespace RimCord
         {
             SanitizeCustomFields();
 
+            if (!ShowLetterEvents)
+            {
+                PresenceEventQueue.ClearCurrentEvent();
+                RimCordMod.PresenceManager?.ClearRecentLetterEvent();
+            }
+            else if (!ShowThreatAlerts)
+            {
+                PresenceEventQueue.ClearThreatEvent();
+            }
+
             if (RimCordMod.PresenceManager != null)
             {
                 if (!EnableRichPresence)
@@ -121,6 +145,7 @@ namespace RimCord
                 else
                 {
                     RimCordMod.PresenceManager.Initialize();
+                    RimCordMod.PresenceManager.Update();
                 }
             }
         }

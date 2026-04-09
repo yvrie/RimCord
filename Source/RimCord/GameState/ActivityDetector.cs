@@ -30,9 +30,12 @@ namespace RimCord.GameState
         {
             ActivityInfo highestPriority = null;
             int highestPriorityValue = -1;
+            bool showLetterEvents = RimCordMod.Settings == null || RimCordMod.Settings.ShowLetterEvents;
+            bool showThreatAlerts = RimCordMod.Settings == null || RimCordMod.Settings.ShowThreatAlerts;
+            bool showGameConditions = RimCordMod.Settings == null || RimCordMod.Settings.ShowGameConditions;
 
             var queuedEvent = PresenceEventQueue.GetCurrentEvent();
-            if (queuedEvent != null)
+            if (showLetterEvents && queuedEvent != null && (showThreatAlerts || !queuedEvent.IsThreatAlert))
             {
                 queuedEventActivity.IsUrgent = queuedEvent.IsUrgent;
                 queuedEventActivity.StateOverride = queuedEvent.State;
@@ -53,7 +56,7 @@ namespace RimCord.GameState
                 return highestPriority;
             }
 
-            if (RaidTracker.IsRaidActive())
+            if (showThreatAlerts && RaidTracker.IsRaidActive())
             {
                 raidActivity.RaidFactionName = RaidTracker.GetRaidFactionName();
                 raidActivity.RaidStartTime = DateTime.UtcNow;
@@ -65,7 +68,7 @@ namespace RimCord.GameState
                 }
             }
 
-            var mentalBreakInfo = MentalBreakTracker.GetActiveMentalBreakInfo();
+            var mentalBreakInfo = showThreatAlerts ? MentalBreakTracker.GetActiveMentalBreakInfo() : null;
             if (mentalBreakInfo != null)
             {
                 mentalBreakActivity.MentalBreakInfo = mentalBreakInfo;
@@ -77,7 +80,7 @@ namespace RimCord.GameState
                 }
             }
 
-            string conditionLabel = GameConditionInfo.GetTopConditionLabel();
+            string conditionLabel = showGameConditions ? GameConditionInfo.GetTopConditionLabel() : null;
             if (!string.IsNullOrEmpty(conditionLabel))
             {
                 gameConditionActivity.StateOverride = conditionLabel;

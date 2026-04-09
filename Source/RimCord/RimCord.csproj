@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == ''">F:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed</RimWorldManagedDir>
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed</RimWorldManagedDir>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -106,3 +106,4 @@
     </PostBuildEvent>
   </PropertyGroup>
 </Project>
+

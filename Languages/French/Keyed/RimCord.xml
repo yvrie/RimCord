@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>Afficher l'icône du conteur</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Utilise la petite image Discord pour le conteur actuel (Cassandra, Phoebe, Randy ou moddé)</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>Afficher les événements de lettres</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Affiche les événements de lettres et le dernier événement mémorisé dans le statut Discord</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>Afficher les alertes de menace</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Affiche les alertes de raid et de crise mentale dans le statut Discord</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>Afficher les conditions de jeu</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Affiche les conditions de jeu actives comme les retombées toxiques ou l'éruption solaire dans le statut Discord</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>Activer le bouton Discord personnalisé</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>Pause: Faible visibilité</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Pause: Production paisible</RimCord_Paused_Peaceful>
 </LanguageData>
-

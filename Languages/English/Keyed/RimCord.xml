@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>Show Storyteller Icon</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Use the Discord small image slot for the current storyteller (Cassandra, Phoebe, Randy, or modded)</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>Show Letter Events</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Display letter events and recent event fallback in Discord status</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>Show Threat Alerts</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Display raid and mental break alerts in Discord status</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>Show Game Conditions</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Display active game conditions like Toxic Fallout or Solar Flare in Discord status</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>Enable custom Discord button</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>Paused: Low visibility</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Paused: Peaceful production</RimCord_Paused_Peaceful>
 </LanguageData>
-

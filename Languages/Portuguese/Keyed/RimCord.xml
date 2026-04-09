@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>Mostrar ícone do narrador</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Usa a imagem pequena do Discord para o narrador atual (Cassandra, Phoebe, Randy ou modded)</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>Mostrar eventos de cartas</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Exibe eventos de cartas e o fallback do evento mais recente no status do Discord</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>Mostrar alertas de ameaça</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Exibe alertas de ataques e colapsos mentais no status do Discord</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>Mostrar condições do jogo</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Exibe condições ativas do jogo, como Chuva Tóxica ou Erupção Solar, no status do Discord</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>Ativar botão Discord personalizado</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>Pausado: Baixa visibilidade</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Pausado: Produção pacífica</RimCord_Paused_Peaceful>
 </LanguageData>
-

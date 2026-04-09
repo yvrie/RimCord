@@ -20,6 +20,7 @@ namespace RimCord
         private bool lastPausedState;
         private string lastEventState;
         private string lastEventDetails;
+        private bool lastEventIsThreatAlert;
         private static long? sessionStartTimestamp;
         private bool wasConnected;
         private string lastStorytellerKey;
@@ -474,12 +475,32 @@ namespace RimCord
             Dispose(false);
         }
 
-        internal void RecordLetterEvent(string state, string details)
+        internal void RecordLetterEvent(string state, string details, bool isThreatAlert = false)
         {
-            RememberLastEvent(state, details);
+            if (RimCordMod.Settings != null)
+            {
+                if (!RimCordMod.Settings.ShowLetterEvents)
+                {
+                    return;
+                }
+
+                if (isThreatAlert && !RimCordMod.Settings.ShowThreatAlerts)
+                {
+                    return;
+                }
+            }
+
+            RememberLastEvent(state, details, isThreatAlert);
         }
 
-        private void RememberLastEvent(string state, string details)
+        internal void ClearRecentLetterEvent()
+        {
+            lastEventState = null;
+            lastEventDetails = null;
+            lastEventIsThreatAlert = false;
+        }
+
+        private void RememberLastEvent(string state, string details, bool isThreatAlert)
         {
             if (string.IsNullOrEmpty(state) && string.IsNullOrEmpty(details))
             {
@@ -488,10 +509,28 @@ namespace RimCord
 
             lastEventState = state;
             lastEventDetails = details;
+            lastEventIsThreatAlert = isThreatAlert;
         }
 
         private bool TryGetRecentEvent(out string state, out string details)
         {
+            if (RimCordMod.Settings != null)
+            {
+                if (!RimCordMod.Settings.ShowLetterEvents)
+                {
+                    state = null;
+                    details = null;
+                    return false;
+                }
+
+                if (lastEventIsThreatAlert && !RimCordMod.Settings.ShowThreatAlerts)
+                {
+                    state = null;
+                    details = null;
+                    return false;
+                }
+            }
+
             state = lastEventState;
             details = lastEventDetails;
             return !string.IsNullOrEmpty(state) || !string.IsNullOrEmpty(details);

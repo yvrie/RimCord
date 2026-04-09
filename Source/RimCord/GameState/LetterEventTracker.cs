@@ -37,17 +37,31 @@ namespace RimCord.GameState
             string details = StripGrammarTokens(TrimAndLimit(CombineLabelAndBody(state, text), MaxDetailsLength));
             bool isUrgent = IsUrgentLetter(letter.def);
             bool isMentalBreak = IsMentalBreakLetter(letter, state, details);
+            var settings = RimCordMod.Settings;
+
+            if (settings != null)
+            {
+                if (!settings.ShowLetterEvents)
+                {
+                    return;
+                }
+
+                if (isMentalBreak && !settings.ShowThreatAlerts)
+                {
+                    return;
+                }
+            }
 
             if (ShouldIgnoreLetter(letter, state, details))
             {
                 return;
             }
 
-            PresenceEventQueue.Enqueue(state, details, durationSeconds: DefaultDurationSeconds, isUrgent: isUrgent, isMentalBreak: isMentalBreak);
+            PresenceEventQueue.Enqueue(state, details, durationSeconds: DefaultDurationSeconds, isUrgent: isUrgent, isMentalBreak: isMentalBreak, isThreatAlert: isMentalBreak);
 
             if (RimCordMod.PresenceManager != null)
             {
-                RimCordMod.PresenceManager.RecordLetterEvent(state, details);
+                RimCordMod.PresenceManager.RecordLetterEvent(state, details, isMentalBreak);
             }
         }
 

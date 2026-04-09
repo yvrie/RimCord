@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>显示叙述者图标</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>将 Discord 的小图标用于当前叙述者（卡桑德拉、菲比、兰迪或模组）</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>显示信件事件</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>在 Discord 状态中显示信件事件和最近事件回退文本</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>显示威胁警报</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>在 Discord 状态中显示袭击和精神崩溃警报</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>显示游戏状态</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>在 Discord 状态中显示活跃的游戏状态，例如有毒沉降或太阳耀斑</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>启用自定义Discord按钮</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>暂停: 能见度低</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>暂停: 和平生产</RimCord_Paused_Peaceful>
 </LanguageData>
-

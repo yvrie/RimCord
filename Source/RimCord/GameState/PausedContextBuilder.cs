@@ -8,7 +8,7 @@ namespace RimCord.GameState
 {
     public static class PausedContextBuilder
     {
-        public static string GetPausedDetails()
+        public static string GetPausedDetails(RimCordSettings settings)
         {
             try
             {
@@ -16,20 +16,27 @@ namespace RimCord.GameState
                 if (map == null)
                     return GetFallbackText("RimCord_Paused_Planning");
 
+                bool showThreatAlerts = settings == null || settings.ShowThreatAlerts;
+                bool showGameConditions = settings == null || settings.ShowGameConditions;
 
-                string raidText = GetRaidPausedText(map);
-                if (!string.IsNullOrEmpty(raidText))
-                    return raidText;
+                if (showThreatAlerts)
+                {
+                    string raidText = GetRaidPausedText(map);
+                    if (!string.IsNullOrEmpty(raidText))
+                        return raidText;
 
 
-                string mentalBreakText = GetMentalBreakPausedText(map);
-                if (!string.IsNullOrEmpty(mentalBreakText))
-                    return mentalBreakText;
+                    string mentalBreakText = GetMentalBreakPausedText(map);
+                    if (!string.IsNullOrEmpty(mentalBreakText))
+                        return mentalBreakText;
+                }
 
-
-                string conditionText = GetGameConditionPausedText(map);
-                if (!string.IsNullOrEmpty(conditionText))
-                    return conditionText;
+                if (showGameConditions)
+                {
+                    string conditionText = GetGameConditionPausedText(map);
+                    if (!string.IsNullOrEmpty(conditionText))
+                        return conditionText;
+                }
 
 
                 string traderText = GetTraderPausedText(map);

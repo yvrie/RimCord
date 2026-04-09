@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>Erzähler-Symbol anzeigen</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Verwendet das kleine Discord-Bild für den aktuellen Erzähler (Cassandra, Phoebe, Randy oder modifiziert)</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>Briefereignisse anzeigen</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Briefereignisse und den letzten Ereignisstatus im Discord-Status anzeigen</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>Bedrohungswarnungen anzeigen</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Überfall- und Nervenzusammenbruch-Warnungen im Discord-Status anzeigen</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>Spielbedingungen anzeigen</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Aktive Spielbedingungen wie Giftiger Niederschlag oder Sonneneruption im Discord-Status anzeigen</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>Benutzerdefinierten Discord-Button aktivieren</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>Pausiert: Schlechte Sicht</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Pausiert: Friedliche Produktion</RimCord_Paused_Peaceful>
 </LanguageData>
-

@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>語り手アイコンを表示</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Discord の小さい画像を現在の語り手（カサンドラ、フィービー、ランディ、またはMOD）に合わせて表示</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>レターイベントを表示</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Discord のステータスにレターイベントと直近イベントのフォールバックを表示します</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>脅威アラートを表示</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Discord のステータスに襲撃と精神崩壊のアラートを表示します</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>ゲームコンディションを表示</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Discord のステータスに有毒降下物や太陽フレアなどの進行中のゲームコンディションを表示します</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>カスタムDiscordボタンを有効化</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>一時停止: 視界不良</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>一時停止: 平和な生産</RimCord_Paused_Peaceful>
 </LanguageData>
-

@@ -7,6 +7,7 @@ namespace RimCord.GameState
         public string State;
         public string Details;
         public bool IsUrgent;
+        public bool IsThreatAlert;
         public string ImageKey;
         public string ImageText;
         public int DurationTicks;
@@ -17,6 +18,7 @@ namespace RimCord.GameState
             State = null;
             Details = null;
             IsUrgent = false;
+            IsThreatAlert = false;
             ImageKey = null;
             ImageText = null;
             DurationTicks = 0;
@@ -32,16 +34,30 @@ namespace RimCord.GameState
 
         public static void Reset()
         {
+            ClearCurrentEvent();
+        }
+
+        public static void ClearCurrentEvent()
+        {
             hasActiveEvent = false;
             eventInstance.Clear();
         }
 
-        public static void Enqueue(string state, string details, int durationSeconds = 5, bool isUrgent = false, string imageKey = null, string imageText = null, bool isMentalBreak = false)
+        public static void ClearThreatEvent()
+        {
+            if (hasActiveEvent && eventInstance.IsThreatAlert)
+            {
+                ClearCurrentEvent();
+            }
+        }
+
+        public static void Enqueue(string state, string details, int durationSeconds = 5, bool isUrgent = false, string imageKey = null, string imageText = null, bool isMentalBreak = false, bool isThreatAlert = false)
         {
             if (string.IsNullOrEmpty(state) && string.IsNullOrEmpty(details))
                 return;
 
-            if (RaidTracker.IsRaidActive() && !isMentalBreak)
+            bool showThreatAlerts = RimCordMod.Settings == null || RimCordMod.Settings.ShowThreatAlerts;
+            if (RaidTracker.IsRaidActive() && !isMentalBreak && showThreatAlerts)
                 return;
 
             int durationTicks = durationSeconds * 60;
@@ -55,6 +71,7 @@ namespace RimCord.GameState
             eventInstance.Details = details;
             eventInstance.DurationTicks = durationTicks;
             eventInstance.IsUrgent = isUrgent;
+            eventInstance.IsThreatAlert = isThreatAlert;
             eventInstance.ImageKey = imageKey;
             eventInstance.ImageText = imageText;
             eventInstance.StartedAtTick = ticksGame;
@@ -72,7 +89,7 @@ namespace RimCord.GameState
 
             if (tickManager == null || elapsed < 0 || elapsed > eventInstance.DurationTicks)
             {
-                hasActiveEvent = false;
+                ClearCurrentEvent();
                 return null;
             }
 

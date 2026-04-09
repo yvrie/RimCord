@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>스토리텔러 아이콘 표시</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>현재 스토리텔러(카산드라, 피비, 랜디 등)의 아이콘을 Discord 소형 이미지에 표시</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>서신 이벤트 표시</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Discord 상태에 서신 이벤트와 최근 이벤트 대체 텍스트를 표시합니다</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>위협 경보 표시</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Discord 상태에 습격과 정신 붕괴 경보를 표시합니다</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>게임 상태 표시</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Discord 상태에 독성 낙진이나 태양 플레어 같은 활성 게임 상태를 표시합니다</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>사용자 정의 Discord 버튼 활성화</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>일시정지: 시야 불량</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>일시정지: 평화로운 생산</RimCord_Paused_Peaceful>
 </LanguageData>
-

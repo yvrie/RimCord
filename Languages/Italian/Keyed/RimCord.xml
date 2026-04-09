@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>Mostra icona del narratore</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Usa la piccola immagine di Discord per il narratore attuale (Cassandra, Phoebe, Randy o modded)</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>Mostra eventi delle lettere</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Mostra gli eventi delle lettere e il testo dell'ultimo evento nello stato Discord</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>Mostra allerte di minaccia</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Mostra gli avvisi di incursioni e crisi mentali nello stato Discord</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>Mostra condizioni di gioco</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Mostra le condizioni di gioco attive come Fallout tossico o Tempesta solare nello stato Discord</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>Abilita pulsante Discord personalizzato</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>Pausa: Scarsa visibilità</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Pausa: Produzione pacifica</RimCord_Paused_Peaceful>
 </LanguageData>
-

@@ -19,6 +19,12 @@
     
     <RimCord_ShowStorytellerIcon>Показывать иконку рассказчика</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Использовать маленькое изображение Discord для текущего рассказчика (Кассандра, Фиби, Рэнди или моды)</RimCord_ShowStorytellerIconDesc>
+    <RimCord_ShowLetterEvents>Показывать события писем</RimCord_ShowLetterEvents>
+    <RimCord_ShowLetterEventsDesc>Показывать события писем и текст последнего события в статусе Discord</RimCord_ShowLetterEventsDesc>
+    <RimCord_ShowThreatAlerts>Показывать оповещения об угрозах</RimCord_ShowThreatAlerts>
+    <RimCord_ShowThreatAlertsDesc>Показывать в статусе Discord оповещения о рейдах и психических срывах</RimCord_ShowThreatAlertsDesc>
+    <RimCord_ShowGameConditions>Показывать игровые условия</RimCord_ShowGameConditions>
+    <RimCord_ShowGameConditionsDesc>Показывать активные игровые условия, такие как токсические осадки или солнечная вспышка, в статусе Discord</RimCord_ShowGameConditionsDesc>
     
     
     <RimCord_EnableCustomButton>Включить пользовательскую кнопку Discord</RimCord_EnableCustomButton>
@@ -82,4 +88,3 @@
     <RimCord_Paused_Fog>Пауза: Плохая видимость</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Пауза: Мирное производство</RimCord_Paused_Peaceful>
 </LanguageData>
-
