@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
+    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>RimCord 设置</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>配置 RimWorld 的 Discord Rich Presence 集成</RimCord_Settings_HeaderDesc>
     
@@ -30,6 +33,7 @@
     <RimCord_EnableCustomButton>启用自定义Discord按钮</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>在Rich Presence中添加可点击的按钮（Twitch、Patreon等）</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>注意：按钮只对查看您个人资料的他人可见，您自己看不到。</RimCord_ButtonNote>
+    <RimCord_DefaultButtonLabel>观看直播</RimCord_DefaultButtonLabel>
     <RimCord_CustomButtonLabel>按钮标签（最多32个字符）</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>按钮URL（必须以https://开头）</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>URL必须以https://开头才能用于Discord按钮</RimCord_UrlWarning>
@@ -46,6 +50,7 @@
     <!-- Game Info -->
     <RimCord_Colonist>殖民者</RimCord_Colonist>
     <RimCord_Colonists>殖民者</RimCord_Colonists>
+    <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>年</RimCord_Year>
     
     <!-- Menu -->
@@ -87,4 +92,5 @@
     <RimCord_Paused_Snow>暂停: 冰封荒野</RimCord_Paused_Snow>
     <RimCord_Paused_Fog>暂停: 能见度低</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>暂停: 和平生产</RimCord_Paused_Peaceful>
+    <RimCord_Paused_Condition_Generic>暂停: {0}</RimCord_Paused_Condition_Generic>
 </LanguageData>

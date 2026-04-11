@@ -39,21 +39,23 @@ namespace RimCord.GameState
                 }
 
 
-                string traderText = GetTraderPausedText(map);
-                if (!string.IsNullOrEmpty(traderText))
-                    return traderText;
+                if (showGameConditions)
+                {
+                    string traderText = GetTraderPausedText(map);
+                    if (!string.IsNullOrEmpty(traderText))
+                        return traderText;
 
+                    string weatherText = GetWeatherTimePausedText(map);
+                    if (!string.IsNullOrEmpty(weatherText))
+                        return weatherText;
+                }
 
-                string weatherText = GetWeatherTimePausedText(map);
-                if (!string.IsNullOrEmpty(weatherText))
-                    return weatherText;
-
-                return GetFallbackText("RimCord_Paused_Planning");
+                return null;
             }
             catch (Exception ex)
             {
                 RimCordLogger.Warning("Error in GetPausedDetails: {0}", ex.Message);
-                return GetFallbackText("RimCord_Paused_Planning");
+                return null;
             }
         }
 
@@ -157,7 +159,7 @@ namespace RimCord.GameState
                         return SafeTranslate("RimCord_Paused_ColdSnap");
                     if (defName == "VolcanicWinter")
                         return SafeTranslate("RimCord_Paused_VolcanicWinter");
-                    if (defName == "ToxicSpewer" || defName == "ToxicFallout")
+                    if (defName == "ToxicSpewer")
                         return SafeTranslate("RimCord_Paused_ToxicFallout");
                     if (defName == "Flashstorm")
                         return SafeTranslate("RimCord_Paused_Flashstorm");
@@ -165,7 +167,7 @@ namespace RimCord.GameState
 
                     string label = condition.LabelCap;
                     if (!string.IsNullOrEmpty(label))
-                        return string.Format("Paused: {0}", label);
+                        return string.Format(SafeTranslate("RimCord_Paused_Condition_Generic"), label);
                 }
 
                 return null;
@@ -240,11 +242,11 @@ namespace RimCord.GameState
                 }
 
 
-                return SafeTranslate("RimCord_Paused_Peaceful");
+                return null;
             }
             catch
             {
-                return SafeTranslate("RimCord_Paused_Planning");
+                return null;
             }
         }
 
@@ -273,7 +275,8 @@ namespace RimCord.GameState
             { "RimCord_Paused_Rain", "Paused: Stormy weather" },
             { "RimCord_Paused_Snow", "Paused: Frozen wasteland" },
             { "RimCord_Paused_Fog", "Paused: Low visibility" },
-            { "RimCord_Paused_Peaceful", "Paused: Peaceful production" }
+            { "RimCord_Paused_Peaceful", "Paused: Peaceful production" },
+            { "RimCord_Paused_Condition_Generic", "Paused: {0}" }
         };
 
         private static string SafeTranslate(string key)

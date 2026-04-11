@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
+    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>RimCord 設定</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>RimWorld の Discord Rich Presence 統合を設定</RimCord_Settings_HeaderDesc>
     
@@ -30,6 +33,7 @@
     <RimCord_EnableCustomButton>カスタムDiscordボタンを有効化</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Rich Presenceにクリック可能なボタンを追加（Twitch、Patreonなど）</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>注意：ボタンはあなたのプロフィールを見ている他の人にのみ表示され、自分には表示されません。</RimCord_ButtonNote>
+    <RimCord_DefaultButtonLabel>ライブを見る</RimCord_DefaultButtonLabel>
     <RimCord_CustomButtonLabel>ボタンラベル（最大32文字）</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>ボタンURL（https://で始まる必要があります）</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>URLはDiscordボタンで有効にするためにhttps://で始まる必要があります</RimCord_UrlWarning>
@@ -46,6 +50,7 @@
     <!-- Game Info -->
     <RimCord_Colonist>入植者</RimCord_Colonist>
     <RimCord_Colonists>入植者</RimCord_Colonists>
+    <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>年</RimCord_Year>
     
     <!-- Menu -->
@@ -87,4 +92,5 @@
     <RimCord_Paused_Snow>一時停止: 凍てつく荒野</RimCord_Paused_Snow>
     <RimCord_Paused_Fog>一時停止: 視界不良</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>一時停止: 平和な生産</RimCord_Paused_Peaceful>
+    <RimCord_Paused_Condition_Generic>一時停止: {0}</RimCord_Paused_Condition_Generic>
 </LanguageData>

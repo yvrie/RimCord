@@ -14,7 +14,7 @@ namespace RimCord.HarmonyPatches
         private static int errorCount;
         private const int MaxErrorsBeforeDisable = 10;
         private static int lastUpdateTick;
-        private const int UpdateIntervalTicks = 900; // 15 seconds at normal speed
+        private const int UpdateIntervalTicks = 900;
 
         [HarmonyPostfix]
         public static void Postfix()
@@ -61,6 +61,11 @@ namespace RimCord.HarmonyPatches
         {
             errorCount = 0;
         }
+
+        internal static void ResetUpdateThrottle()
+        {
+            lastUpdateTick = -UpdateIntervalTicks;
+        }
     }
 
     [HarmonyPatch(typeof(Game), nameof(Game.FinalizeInit))]
@@ -72,6 +77,7 @@ namespace RimCord.HarmonyPatches
             try
             {
                 GameTickPatch.ResetErrorCount();
+                GameTickPatch.ResetUpdateThrottle();
 
                 var presenceManager = RimCordMod.PresenceManager;
                 if (presenceManager == null || presenceManager.IsDisposed)
@@ -85,11 +91,163 @@ namespace RimCord.HarmonyPatches
                     presenceManager.Initialize();
                 }
 
-                ColonyInfo.InvalidateCache();
+                WorldInfo.InvalidateCache();
+                StorytellerInfo.InvalidateCache();
+                ForcePresenceUpdate("game load");
+                SchedulePostLoadPresenceUpdate();
             }
             catch (Exception ex)
             {
                 RimCordLogger.Error("Error in GameInitPatch.Postfix: {0}", ex.Message);
+            }
+        }
+
+        private static void SchedulePostLoadPresenceUpdate()
+        {
+            try
+            {
+                LongEventHandler.ExecuteWhenFinished(() =>
+                {
+                    try
+                    {
+                        WorldInfo.InvalidateCache();
+                        StorytellerInfo.InvalidateCache();
+                        ForcePresenceUpdate("post-load");
+                    }
+                    catch (Exception ex)
+                    {
+                        RimCordLogger.Warning("Error in post-load presence update: {0}", ex.Message);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("Unable to schedule post-load presence update: {0}", ex.Message);
+            }
+        }
+
+        private static void ForcePresenceUpdate(string source)
+        {
+            var manager = RimCordMod.PresenceManager;
+            if (manager == null || manager.IsDisposed)
+                return;
+
+            try
+            {
+                manager.Update(force: true);
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("Forced presence update failed ({0}): {1}", source, ex.Message);
+            }
+        }
+    }
+
+    internal static class ColonistRosterPresenceRefresh
+    {
+        private static DateTime lastRefreshUtc = DateTime.MinValue;
+        private static int lastObservedColonistCount = -1;
+        private const double DuplicateRefreshWindowSeconds = 0.75;
+
+        internal static bool CouldAffectDisplayedColonistCount(Pawn pawn)
+        {
+            try
+            {
+                if (pawn == null)
+                    return false;
+
+                if (pawn.RaceProps?.Humanlike != true)
+                    return false;
+
+                var faction = pawn.Faction;
+                if (faction == null || !faction.IsPlayer)
+                    return false;
+
+                return !pawn.IsSlave && !pawn.IsPrisoner;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        internal static void ForceRefresh(string source)
+        {
+            try
+            {
+                if (Current.ProgramState != ProgramState.Playing)
+                    return;
+
+                int currentColonistCount = ColonyInfo.GetColonistCount();
+                var now = DateTime.UtcNow;
+                bool duplicateRefresh = currentColonistCount == lastObservedColonistCount
+                    && (now - lastRefreshUtc).TotalSeconds < DuplicateRefreshWindowSeconds;
+                if (duplicateRefresh)
+                    return;
+
+                lastObservedColonistCount = currentColonistCount;
+                lastRefreshUtc = now;
+
+                var manager = RimCordMod.PresenceManager;
+                if (manager == null || manager.IsDisposed)
+                    return;
+
+                manager.Update(force: true);
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("Colonist roster presence refresh failed ({0}): {1}", source, ex.Message);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(MapPawns), nameof(MapPawns.RegisterPawn))]
+    public static class MapPawnsRegisterPawnPatch
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn p)
+        {
+            if (ColonistRosterPresenceRefresh.CouldAffectDisplayedColonistCount(p))
+            {
+                ColonistRosterPresenceRefresh.ForceRefresh("pawn registered");
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(MapPawns), nameof(MapPawns.DeRegisterPawn))]
+    public static class MapPawnsDeRegisterPawnPatch
+    {
+        [HarmonyPrefix]
+        public static void Prefix(Pawn p, ref bool __state)
+        {
+            __state = ColonistRosterPresenceRefresh.CouldAffectDisplayedColonistCount(p);
+        }
+
+        [HarmonyPostfix]
+        public static void Postfix(bool __state)
+        {
+            if (__state)
+            {
+                ColonistRosterPresenceRefresh.ForceRefresh("pawn deregistered");
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn), nameof(Pawn.Kill))]
+    public static class PawnKillPresencePatch
+    {
+        [HarmonyPrefix]
+        public static void Prefix(Pawn __instance, ref bool __state)
+        {
+            __state = ColonistRosterPresenceRefresh.CouldAffectDisplayedColonistCount(__instance);
+        }
+
+        [HarmonyPostfix]
+        public static void Postfix(bool __state)
+        {
+            if (__state)
+            {
+                ColonistRosterPresenceRefresh.ForceRefresh("pawn killed");
             }
         }
     }
@@ -103,22 +261,20 @@ namespace RimCord.HarmonyPatches
             {
                 if (method.Name != "ReceiveLetter")
                     continue;
-                
-                var parameters = method.GetParameters();
-                if (parameters.Length > 0 && parameters[0].ParameterType == typeof(Letter))
-                    yield return method;
+
+                yield return method;
             }
         }
 
         [HarmonyPostfix]
-        public static void Postfix(Letter let)
+        public static void Postfix(object[] __args)
         {
-            if (let == null)
+            if (__args == null || __args.Length == 0)
                 return;
 
             try
             {
-                LetterEventTracker.NotifyLetter(let);
+                LetterEventTracker.NotifyReceiveLetterArguments(__args);
             }
             catch (Exception ex)
             {

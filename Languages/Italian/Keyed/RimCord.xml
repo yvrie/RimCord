@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
+    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>Impostazioni RimCord</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>Configura l'integrazione Discord Rich Presence per RimWorld</RimCord_Settings_HeaderDesc>
     
@@ -30,6 +33,7 @@
     <RimCord_EnableCustomButton>Abilita pulsante Discord personalizzato</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Aggiunge un pulsante cliccabile alla tua Rich Presence (Twitch, Patreon, ecc.)</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>Nota: I pulsanti sono visibili solo agli altri che visualizzano il tuo profilo, non a te stesso.</RimCord_ButtonNote>
+    <RimCord_DefaultButtonLabel>Guarda in diretta</RimCord_DefaultButtonLabel>
     <RimCord_CustomButtonLabel>Etichetta pulsante (max 32 caratteri)</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>URL pulsante (deve iniziare con https://)</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>L'URL deve iniziare con https:// per essere valido per i pulsanti Discord</RimCord_UrlWarning>
@@ -46,6 +50,7 @@
     <!-- Game Info -->
     <RimCord_Colonist>colono</RimCord_Colonist>
     <RimCord_Colonists>coloni</RimCord_Colonists>
+    <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>Anno</RimCord_Year>
     
     <!-- Menu -->
@@ -87,4 +92,5 @@
     <RimCord_Paused_Snow>Pausa: Deserto ghiacciato</RimCord_Paused_Snow>
     <RimCord_Paused_Fog>Pausa: Scarsa visibilità</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>Pausa: Produzione pacifica</RimCord_Paused_Peaceful>
+    <RimCord_Paused_Condition_Generic>Pausa: {0}</RimCord_Paused_Condition_Generic>
 </LanguageData>

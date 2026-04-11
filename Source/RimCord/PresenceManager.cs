@@ -18,6 +18,8 @@ namespace RimCord
         private string lastPresenceDetails = string.Empty;
         private string lastImageKey = string.Empty;
         private bool lastPausedState;
+        private TimeSpeed lastTimeSpeed = TimeSpeed.Normal;
+        private DateTime? pauseStartedAtUtc;
         private string lastEventState;
         private string lastEventDetails;
         private bool lastEventIsThreatAlert;
@@ -26,9 +28,17 @@ namespace RimCord
         private string lastStorytellerKey;
         private string lastStorytellerText;
         private int lastColonistCount;
+        private DateTime lastColonistAuditUtc = DateTime.MinValue;
         private int reconnectAttempts;
         private long nextReconnectAllowedTick;
         private const int MaxReconnectDelayTicks = 3600;
+        private const double PauseDisplayDelaySeconds = 60.0;
+        private const double ColonistAuditIntervalSeconds = 60.0;
+        private const double LetterEventRetentionSeconds = 180.0;
+        private List<(string Label, string Url)> cachedButtonsPayload;
+        private string lastButtonLabel;
+        private string lastButtonUrl;
+        private bool lastEnableCustomButton;
 
         public PresenceManager()
         {
@@ -39,7 +49,6 @@ namespace RimCord
 
         public void Initialize()
         {
-            // only set once so the playing timer doesnt reset
             if (!sessionStartTimestamp.HasValue)
             {
                 sessionStartTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -57,7 +66,7 @@ namespace RimCord
             }
         }
 
-        public void Update()
+        public void Update(bool force = false)
         {
             try
             {
@@ -80,24 +89,99 @@ namespace RimCord
                     discordIPC = new DiscordIPC();
                 }
 
-                TickManager tickManager = null;
-                try
-                {
-                    tickManager = Find.TickManager;
-                }
-                catch { }
-
-                long currentClock = GetUpdateClock(tickManager);
-                bool isPaused = (tickManager != null) ? tickManager.Paused : false;
-
                 bool inGame = false;
                 try
                 {
                     inGame = Current.ProgramState == ProgramState.Playing;
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    RimCordLogger.Warning("Error accessing ProgramState: {0}", ex.Message);
+                }
+                if (!inGame)
+                {
+                    lastColonistAuditUtc = DateTime.MinValue;
+                }
 
-                var activity = inGame ? ActivityDetector.DetectCurrentActivity() : null;
+                TickManager tickManager = null;
+                if (inGame)
+                {
+                    try
+                    {
+                        tickManager = Find.TickManager;
+                    }
+                    catch (Exception ex)
+                    {
+                        RimCordLogger.Warning("Error accessing TickManager: {0}", ex.Message);
+                    }
+                }
+
+                long currentClock = GetUpdateClock(tickManager);
+                TimeSpeed currentTimeSpeed = TimeSpeed.Normal;
+                bool isPaused = false;
+                if (tickManager != null)
+                {
+                    try
+                    {
+                        currentTimeSpeed = tickManager.CurTimeSpeed;
+                    }
+                    catch (Exception ex)
+                    {
+                        RimCordLogger.Warning("Error accessing time speed: {0}", ex.Message);
+                    }
+
+                    try
+                    {
+                        isPaused = tickManager.Paused || currentTimeSpeed == TimeSpeed.Paused;
+                    }
+                    catch (Exception ex)
+                    {
+                        RimCordLogger.Warning("Error accessing pause state: {0}", ex.Message);
+                        isPaused = currentTimeSpeed == TimeSpeed.Paused;
+                    }
+                }
+
+                bool displayPaused = false;
+                if (inGame && isPaused)
+                {
+                    var now = DateTime.UtcNow;
+                    if (!pauseStartedAtUtc.HasValue)
+                    {
+                        pauseStartedAtUtc = now;
+                    }
+
+                    displayPaused = (now - pauseStartedAtUtc.Value).TotalSeconds >= PauseDisplayDelaySeconds;
+                }
+                else
+                {
+                    pauseStartedAtUtc = null;
+                }
+
+                ActivityInfo activity = null;
+                if (inGame)
+                {
+                    try
+                    {
+                        activity = ActivityDetector.DetectCurrentActivity();
+                    }
+                    catch (Exception ex)
+                    {
+                        RimCordLogger.Warning("Error detecting current activity: {0}", ex.Message);
+                    }
+                }
+
+                int currentColonistCount = 0;
+                if (inGame)
+                {
+                    try
+                    {
+                        currentColonistCount = ColonyInfo.GetColonistCount();
+                    }
+                    catch (Exception ex)
+                    {
+                        RimCordLogger.Warning("Error reading colonist count: {0}", ex.Message);
+                    }
+                }
 
                 string currentState = null;
                 string currentDetails = null;
@@ -105,7 +189,7 @@ namespace RimCord
 
                 try
                 {
-                    currentState = PresenceTextBuilder.BuildState(activity, inGame, TryGetRecentEventSnapshot);
+                    currentState = PresenceTextBuilder.BuildState(activity, inGame, displayPaused, currentColonistCount, TryGetRecentEventSnapshot);
                 }
                 catch (Exception ex)
                 {
@@ -115,7 +199,7 @@ namespace RimCord
 
                 try
                 {
-                    currentDetails = PresenceTextBuilder.BuildDetails(activity, inGame, RimCordMod.Settings, TryGetRecentEventSnapshot);
+                    currentDetails = PresenceTextBuilder.BuildDetails(activity, inGame, displayPaused, currentColonistCount, RimCordMod.Settings, TryGetRecentEventSnapshot);
                 }
                 catch (Exception ex)
                 {
@@ -132,9 +216,7 @@ namespace RimCord
                     RimCordLogger.Warning("Error getting image key: {0}", ex.Message);
                     currentImageKey = inGame ? "rimworld" : "rimworld_menu";
                 }
-            
-                bool shouldUpdate = true;
-            
+
                 bool isConnected = discordIPC != null && discordIPC.IsConnected;
                 if (!isConnected && RimCordMod.Settings != null && RimCordMod.Settings.EnableRichPresence)
                 {
@@ -153,46 +235,66 @@ namespace RimCord
                     }
                 }
 
-                if (shouldUpdate && isConnected)
+                if (isConnected)
                 {
                     bool justReconnected = !wasConnected;
-                    if (justReconnected)
-                        reconnectAttempts = 0;
-                    wasConnected = true;
 
                     string currentStorytellerKey = null;
                     string currentStorytellerText = null;
                     if (inGame && RimCordMod.Settings?.ShowStorytellerIcon == true)
                     {
-                        var storytellerAssets = GameState.StorytellerInfo.GetStorytellerAssets();
-                        currentStorytellerKey = storytellerAssets.SmallImageKey;
-                        currentStorytellerText = storytellerAssets.SmallImageText;
+                        try
+                        {
+                            var storytellerAssets = GameState.StorytellerInfo.GetStorytellerAssets();
+                            currentStorytellerKey = storytellerAssets.SmallImageKey;
+                            currentStorytellerText = storytellerAssets.SmallImageText;
+                        }
+                        catch (Exception ex)
+                        {
+                            RimCordLogger.Warning("Error reading storyteller info: {0}", ex.Message);
+                        }
                     }
 
-                    int currentColonistCount = inGame ? ColonyInfo.GetColonistCount() : 0;
-
-                    bool stateChanged = currentState != lastPresenceState 
-                        || currentDetails != lastPresenceDetails 
+                    bool stateChanged = currentState != lastPresenceState
+                        || currentDetails != lastPresenceDetails
                         || currentImageKey != lastImageKey
                         || isPaused != lastPausedState
+                        || currentTimeSpeed != lastTimeSpeed
                         || currentStorytellerKey != lastStorytellerKey
                         || currentStorytellerText != lastStorytellerText
-                        || currentColonistCount != lastColonistCount
-                        || isPaused;
-                    
-                    if (!stateChanged && !justReconnected)
+                        || currentColonistCount != lastColonistCount;
+
+                    bool colonistAuditDue = inGame && IsColonistAuditDue();
+                    if (!force && !stateChanged && !justReconnected && !colonistAuditDue)
                     {
                         return;
                     }
 
-                    UpdatePresence(currentState ?? "Main Menu", currentDetails ?? "Browsing mods and settings", activity, inGame);
+                    bool updateSent = UpdatePresence(currentState ?? "Main Menu", currentDetails ?? "Browsing mods and settings", activity, inGame, currentColonistCount);
+                    if (!updateSent)
+                    {
+                        wasConnected = false;
+                        return;
+                    }
+
+                    if (justReconnected)
+                        reconnectAttempts = 0;
+                    wasConnected = true;
+                    if (inGame)
+                        lastColonistAuditUtc = DateTime.UtcNow;
+
                     lastPresenceState = currentState;
                     lastColonistCount = currentColonistCount;
                     lastPresenceDetails = currentDetails;
                     lastImageKey = currentImageKey;
                     lastPausedState = isPaused;
+                    lastTimeSpeed = currentTimeSpeed;
                     lastStorytellerKey = currentStorytellerKey;
                     lastStorytellerText = currentStorytellerText;
+                }
+                else
+                {
+                    wasConnected = false;
                 }
             }
             catch (Exception ex)
@@ -203,7 +305,7 @@ namespace RimCord
 
         private (string State, string Details)? TryGetRecentEventSnapshot()
         {
-                if (TryGetRecentEvent(out var state, out var details))
+            if (TryGetRecentEvent(out var state, out var details))
             {
                 return (state, details);
             }
@@ -276,58 +378,21 @@ namespace RimCord
             return "RimWorld";
         }
 
-        private void UpdatePresence(string state, string details, ActivityInfo activity, bool inGame)
+        private bool IsColonistAuditDue()
+        {
+            return lastColonistAuditUtc == DateTime.MinValue
+                || (DateTime.UtcNow - lastColonistAuditUtc).TotalSeconds >= ColonistAuditIntervalSeconds;
+        }
+
+        private bool UpdatePresence(string state, string details, ActivityInfo activity, bool inGame, int colonistCount)
         {
             if (discordIPC == null || !discordIPC.IsConnected)
             {
-                return;
+                return false;
             }
 
             string finalState = state;
             string finalDetails = details;
-
-
-            bool isPaused = false;
-            try { isPaused = Find.TickManager?.Paused ?? false; } catch { }
-
-            if (inGame && activity != null && activity.IsUrgent && !isPaused)
-            {
-                if (activity.Activity == "Raid")
-                {
-                    try
-                    {
-                        var settings = RimCordMod.Settings;
-                        var activityParts = new System.Collections.Generic.List<string>();
-                        
-                        if (settings?.ShowColonyName == true)
-                        {
-                            string colonyName = ColonyInfo.GetColonyName();
-                            if (!string.IsNullOrEmpty(colonyName))
-                                activityParts.Add(colonyName);
-                        }
-                        
-                        int year = WorldInfo.GetYear();
-                        if (year > 0)
-                        {
-                            string quadrum = settings?.ShowBiome == true ? WorldInfo.GetQuadrum() : null;
-                            activityParts.Add(string.IsNullOrEmpty(quadrum)
-                                ? string.Format("{0} {1}", "RimCord_Year".Translate(), year)
-                                : string.Format("{0} {1}, {2}", "RimCord_Year".Translate(), year, quadrum));
-                        }
-                        
-                        if (settings?.ShowBiome == true)
-                        {
-                            string biome = WorldInfo.GetBiomeName();
-                            if (!string.IsNullOrEmpty(biome))
-                                activityParts.Add(biome);
-                        }
-                        
-                        if (activityParts.Count > 0)
-                            finalDetails = string.Join(" | ", activityParts);
-                    }
-                    catch { }
-                }
-            }
 
             string largeImageKey = activity?.LargeImageKey;
             string largeImageText = activity?.LargeImageText;
@@ -398,17 +463,13 @@ namespace RimCord
 
             int? partySize = null;
             int? partyMax = null;
-            if (inGame && RimCordMod.Settings?.ShowColonistCount == true)
+            if (inGame && RimCordMod.Settings?.ShowColonistCount == true && colonistCount > 0)
             {
-                int colonistCount = ColonyInfo.GetColonistCount();
-                if (colonistCount > 0)
-                {
-                    partySize = colonistCount;
-                    partyMax = colonistCount;
-                }
+                partySize = colonistCount;
+                partyMax = colonistCount;
             }
 
-            discordIPC.UpdatePresence(
+            return discordIPC.UpdatePresence(
                 state: finalStateValue,
                 details: finalDetailsValue,
                 startTimestamp: sessionStartTimestamp,
@@ -498,7 +559,10 @@ namespace RimCord
             lastEventState = null;
             lastEventDetails = null;
             lastEventIsThreatAlert = false;
+            lastEventRecordedAt = DateTime.MinValue;
         }
+
+        private DateTime lastEventRecordedAt = DateTime.MinValue;
 
         private void RememberLastEvent(string state, string details, bool isThreatAlert)
         {
@@ -510,10 +574,17 @@ namespace RimCord
             lastEventState = state;
             lastEventDetails = details;
             lastEventIsThreatAlert = isThreatAlert;
+            lastEventRecordedAt = DateTime.UtcNow;
         }
 
         private bool TryGetRecentEvent(out string state, out string details)
         {
+            if (lastEventRecordedAt != DateTime.MinValue &&
+                (DateTime.UtcNow - lastEventRecordedAt).TotalSeconds > LetterEventRetentionSeconds)
+            {
+                ClearRecentLetterEvent();
+            }
+
             if (RimCordMod.Settings != null)
             {
                 if (!RimCordMod.Settings.ShowLetterEvents)
@@ -549,26 +620,32 @@ namespace RimCord
         private List<(string Label, string Url)> BuildButtonsPayload()
         {
             var settings = RimCordMod.Settings;
-            if (settings == null || !settings.EnableCustomButton)
+            bool enableButton = settings != null && settings.EnableCustomButton;
+            string label = enableButton ? settings.CustomButtonLabel?.Trim() : null;
+            string url = enableButton ? settings.CustomButtonUrl?.Trim() : null;
+
+            if (enableButton == lastEnableCustomButton
+                && label == lastButtonLabel
+                && url == lastButtonUrl)
             {
-                return null;
+                return cachedButtonsPayload;
             }
 
-            string label = settings.CustomButtonLabel?.Trim();
-            string url = settings.CustomButtonUrl?.Trim();
+            lastEnableCustomButton = enableButton;
+            lastButtonLabel = label;
+            lastButtonUrl = url;
 
-            if (string.IsNullOrEmpty(label) || string.IsNullOrEmpty(url))
+            if (!enableButton || string.IsNullOrEmpty(label) || string.IsNullOrEmpty(url) || !RimCordSettings.IsValidButtonUrl(url))
+            {
+                cachedButtonsPayload = null;
                 return null;
-
-            if (!RimCordSettings.IsValidButtonUrl(url))
-                return null;
+            }
 
             if (label.Length > 32)
-            {
                 label = label.Substring(0, 32);
-            }
 
-            return new List<(string Label, string Url)>(1) { (label, url) };
+            cachedButtonsPayload = new List<(string Label, string Url)>(1) { (label, url) };
+            return cachedButtonsPayload;
         }
 
     }

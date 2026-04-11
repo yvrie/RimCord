@@ -96,7 +96,6 @@ namespace RimCord.GameState
 
             string identity = (def.defName ?? def.label ?? string.Empty).ToLowerInvariant();
 
-            // Vanilla storytellers
             if (identity.Contains("cassandra"))
             {
                 return "cassandra";
@@ -112,8 +111,6 @@ namespace RimCord.GameState
                 return "randy";
             }
 
-            // Modded/custom storyteller - use "random" icon
-            // The storyteller name will still show in the tooltip text
             return "random";
         }
     }

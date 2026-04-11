@@ -6,33 +6,14 @@ namespace RimCord.GameState
 {
     public static class ColonyInfo
     {
-        private static string cachedColonyName;
-        private static int cachedColonistCount;
-        private static int cachedTick = -1;
-        private const int CacheValidityTicks = 1;
-
         public static string GetColonyName()
         {
-            RefreshCacheIfNeeded();
-            return cachedColonyName;
+            return ComputeColonyName();
         }
 
         public static int GetColonistCount()
         {
-            RefreshCacheIfNeeded();
-            return cachedColonistCount;
-        }
-
-        private static void RefreshCacheIfNeeded()
-        {
-            int currentTick = Find.TickManager?.TicksGame ?? 0;
-            int tickDiff = currentTick - cachedTick;
-            if (cachedTick >= 0 && tickDiff >= 0 && tickDiff < CacheValidityTicks)
-                return;
-
-            cachedTick = currentTick;
-            cachedColonyName = ComputeColonyName();
-            cachedColonistCount = ComputeColonistCount();
+            return ComputeColonistCount();
         }
 
         private static string ComputeColonyName()
@@ -82,7 +63,6 @@ namespace RimCord.GameState
                     if (pawn.RaceProps?.Humanlike != true)
                         continue;
 
-                    // Exclude slaves and prisoners
                     if (pawn.IsSlave || pawn.IsPrisoner)
                         continue;
 
@@ -97,9 +77,5 @@ namespace RimCord.GameState
             }
         }
 
-        internal static void InvalidateCache()
-        {
-            cachedTick = -1;
-        }
     }
 }

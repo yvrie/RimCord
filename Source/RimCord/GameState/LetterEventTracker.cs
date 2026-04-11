@@ -10,6 +10,11 @@ namespace RimCord.GameState
     {
         private const int DefaultDurationSeconds = 12;
         private const int MaxDetailsLength = 160;
+        private const int MaxBriefDetailsLength = 72;
+        private const double DuplicateWindowSeconds = 0.75;
+        private static DateTime lastRecordedAtUtc = DateTime.MinValue;
+        private static string lastRecordedState;
+        private static string lastRecordedDetails;
         private static readonly MethodInfo GetMouseoverMethod = typeof(Letter).GetMethod("GetMouseoverText", BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static readonly Regex GrammarStarPattern = new Regex(@"\(\*[^)]*\)", RegexOptions.Compiled);
@@ -34,9 +39,74 @@ namespace RimCord.GameState
                 state = letter.def?.LabelCap ?? "RimCord_Event".Translate();
             }
 
-            string details = StripGrammarTokens(TrimAndLimit(CombineLabelAndBody(state, text), MaxDetailsLength));
-            bool isUrgent = IsUrgentLetter(letter.def);
-            bool isMentalBreak = IsMentalBreakLetter(letter, state, details);
+            RecordLetterEvent(letter, letter.def, state, text);
+        }
+
+        public static void NotifyReceiveLetterArguments(object[] args)
+        {
+            if (args == null || args.Length == 0)
+            {
+                return;
+            }
+
+            foreach (var arg in args)
+            {
+                if (arg is Letter letter)
+                {
+                    NotifyLetter(letter);
+                    return;
+                }
+            }
+
+            string state = null;
+            string text = null;
+            LetterDef def = null;
+
+            foreach (var arg in args)
+            {
+                if (def == null && arg is LetterDef letterDef)
+                {
+                    def = letterDef;
+                    continue;
+                }
+
+                string value = ResolveTextArgument(arg);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    continue;
+                }
+
+                if (state == null)
+                {
+                    state = value;
+                }
+                else if (text == null)
+                {
+                    text = value;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(state))
+            {
+                state = def?.LabelCap ?? "RimCord_Event".Translate();
+            }
+
+            RecordLetterEvent(null, def, state, text);
+        }
+
+        private static void RecordLetterEvent(Letter letter, LetterDef def, string state, string text)
+        {
+            state = StripGrammarTokens(TrimAndLimit(state, MaxDetailsLength));
+            string detectionText = StripGrammarTokens(TrimAndLimit(CombineLabelAndBody(state, text), MaxDetailsLength));
+            bool isManInBlack = IsManInBlackLetter(letter, def, state, detectionText);
+            if (isManInBlack && string.IsNullOrWhiteSpace(state))
+            {
+                state = "Man in black";
+            }
+
+            string details = BuildBriefDetails(state, text);
+            bool isUrgent = !isManInBlack && IsUrgentLetter(def);
+            bool isMentalBreak = !isManInBlack && IsMentalBreakLetter(def, state, detectionText);
             var settings = RimCordMod.Settings;
 
             if (settings != null)
@@ -52,12 +122,18 @@ namespace RimCord.GameState
                 }
             }
 
-            if (ShouldIgnoreLetter(letter, state, details))
+            if (ShouldIgnoreLetter(letter, state, detectionText))
+            {
+                return;
+            }
+
+            if (IsDuplicateEvent(state, details))
             {
                 return;
             }
 
             PresenceEventQueue.Enqueue(state, details, durationSeconds: DefaultDurationSeconds, isUrgent: isUrgent, isMentalBreak: isMentalBreak, isThreatAlert: isMentalBreak);
+            RememberDuplicateKey(state, details);
 
             if (RimCordMod.PresenceManager != null)
             {
@@ -81,6 +157,26 @@ namespace RimCord.GameState
                 catch
                 {
                 }
+            }
+
+            return null;
+        }
+
+        private static string ResolveTextArgument(object value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (value is TaggedString tagged)
+            {
+                return ResolveTaggedString(tagged);
+            }
+
+            if (value is string text)
+            {
+                return StripGrammarTokens(text);
             }
 
             return null;
@@ -124,6 +220,61 @@ namespace RimCord.GameState
             }
 
             return string.Format("{0}: {1}", normalizedLabel, normalizedBody);
+        }
+
+        private static string BuildBriefDetails(string state, string body)
+        {
+            string fallback = StripGrammarTokens(TrimAndLimit(state, MaxBriefDetailsLength));
+            string summary = ExtractBriefSummary(body);
+            if (string.IsNullOrWhiteSpace(summary))
+            {
+                return fallback;
+            }
+
+            string cleanState = StripGrammarTokens(state);
+            if (!string.IsNullOrEmpty(cleanState) && summary.StartsWith(cleanState, StringComparison.OrdinalIgnoreCase))
+            {
+                summary = summary.Substring(cleanState.Length).TrimStart(' ', ':', '-', '.', '!', '?');
+            }
+
+            if (string.IsNullOrWhiteSpace(summary) || string.Equals(summary, cleanState, StringComparison.OrdinalIgnoreCase))
+            {
+                return fallback;
+            }
+
+            return TrimAndLimit(summary, MaxBriefDetailsLength);
+        }
+
+        private static string ExtractBriefSummary(string value)
+        {
+            string clean = StripGrammarTokens(value);
+            if (string.IsNullOrWhiteSpace(clean))
+            {
+                return null;
+            }
+
+            int sentenceEnd = FindSentenceEnd(clean);
+            if (sentenceEnd >= 0 && sentenceEnd < MaxBriefDetailsLength)
+            {
+                return clean.Substring(0, sentenceEnd + 1).Trim();
+            }
+
+            return TrimAndLimit(clean, MaxBriefDetailsLength);
+        }
+
+        private static int FindSentenceEnd(string value)
+        {
+            int maxSearch = Math.Min(value.Length, MaxBriefDetailsLength);
+            for (int i = 8; i < maxSearch; i++)
+            {
+                char c = value[i];
+                if (c == '.' || c == '!' || c == '?')
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         private static string TrimAndLimit(string value, int maxLength)
@@ -191,9 +342,9 @@ namespace RimCord.GameState
             return source != null && source.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
-        private static bool IsMentalBreakLetter(Letter letter, string state, string details)
+        private static bool IsMentalBreakLetter(LetterDef def, string state, string details)
         {
-            if (letter.def != LetterDefOf.NegativeEvent)
+            if (def != LetterDefOf.NegativeEvent)
                 return false;
 
             string combined = string.Concat(state, " ", details);
@@ -204,6 +355,18 @@ namespace RimCord.GameState
                    ContainsIgnoreCase(combined, "murderous") || ContainsIgnoreCase(combined, "sad");
         }
 
+        private static bool IsManInBlackLetter(Letter letter, LetterDef def, string state, string details)
+        {
+            string defName = def?.defName ?? letter?.def?.defName;
+            if (string.Equals(defName, "StrangerInBlackJoin", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            string combined = string.Concat(state, " ", details);
+            return ContainsIgnoreCase(combined, "man in black")
+                || ContainsIgnoreCase(combined, "woman in black")
+                || ContainsIgnoreCase(combined, "stranger in black");
+        }
+
         private static bool ShouldIgnoreLetter(Letter letter, string state, string details)
         {
             string combined = string.Concat(state, " ", details);
@@ -211,6 +374,24 @@ namespace RimCord.GameState
                 return false;
 
             return ContainsIgnoreCase(combined, "raid");
+        }
+
+        private static bool IsDuplicateEvent(string state, string details)
+        {
+            if ((DateTime.UtcNow - lastRecordedAtUtc).TotalSeconds > DuplicateWindowSeconds)
+            {
+                return false;
+            }
+
+            return string.Equals(state, lastRecordedState, StringComparison.Ordinal)
+                && string.Equals(details, lastRecordedDetails, StringComparison.Ordinal);
+        }
+
+        private static void RememberDuplicateKey(string state, string details)
+        {
+            lastRecordedState = state;
+            lastRecordedDetails = details;
+            lastRecordedAtUtc = DateTime.UtcNow;
         }
     }
 }

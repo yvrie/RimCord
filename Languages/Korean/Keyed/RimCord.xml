@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
+    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>RimCord 설정</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>RimWorld용 Discord Rich Presence 통합 구성</RimCord_Settings_HeaderDesc>
     
@@ -30,6 +33,7 @@
     <RimCord_EnableCustomButton>사용자 정의 Discord 버튼 활성화</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Rich Presence에 클릭 가능한 버튼 추가 (Twitch, Patreon 등)</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>주의: 버튼은 프로필을 보는 다른 사람들에게만 보이며, 본인에게는 보이지 않습니다.</RimCord_ButtonNote>
+    <RimCord_DefaultButtonLabel>라이브 보기</RimCord_DefaultButtonLabel>
     <RimCord_CustomButtonLabel>버튼 라벨 (최대 32자)</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>버튼 URL (https://로 시작해야 함)</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>URL은 Discord 버튼에 유효하려면 https://로 시작해야 합니다</RimCord_UrlWarning>
@@ -46,6 +50,7 @@
     <!-- Game Info -->
     <RimCord_Colonist>식민지 주민</RimCord_Colonist>
     <RimCord_Colonists>식민지 주민</RimCord_Colonists>
+    <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>년</RimCord_Year>
     
     <!-- Menu -->
@@ -87,4 +92,5 @@
     <RimCord_Paused_Snow>일시정지: 얼어붙은 황야</RimCord_Paused_Snow>
     <RimCord_Paused_Fog>일시정지: 시야 불량</RimCord_Paused_Fog>
     <RimCord_Paused_Peaceful>일시정지: 평화로운 생산</RimCord_Paused_Peaceful>
+    <RimCord_Paused_Condition_Generic>일시정지: {0}</RimCord_Paused_Condition_Generic>
 </LanguageData>
