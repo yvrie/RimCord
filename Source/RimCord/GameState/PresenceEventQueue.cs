@@ -1,4 +1,4 @@
-using Verse;
+using System;
 
 namespace RimCord.GameState
 {
@@ -8,10 +8,10 @@ namespace RimCord.GameState
         public string Details;
         public bool IsUrgent;
         public bool IsThreatAlert;
+        public bool IsMentalBreak;
         public string ImageKey;
         public string ImageText;
-        public int DurationTicks;
-        public int StartedAtTick;
+        public DateTime ExpiresAtUtc;
 
         public void Clear()
         {
@@ -19,10 +19,10 @@ namespace RimCord.GameState
             Details = null;
             IsUrgent = false;
             IsThreatAlert = false;
+            IsMentalBreak = false;
             ImageKey = null;
             ImageText = null;
-            DurationTicks = 0;
-            StartedAtTick = 0;
+            ExpiresAtUtc = DateTime.MinValue;
         }
     }
 
@@ -30,7 +30,7 @@ namespace RimCord.GameState
     {
         private static readonly QueuedPresenceEvent eventInstance = new QueuedPresenceEvent();
         private static bool hasActiveEvent;
-        private const int DefaultDurationTicks = 300;
+        private const int DefaultDurationSeconds = 5;
 
         public static void Reset()
         {
@@ -51,30 +51,35 @@ namespace RimCord.GameState
             }
         }
 
+        public static void ClearMentalBreakEvent()
+        {
+            if (hasActiveEvent && eventInstance.IsMentalBreak)
+            {
+                ClearCurrentEvent();
+            }
+        }
+
         public static void Enqueue(string state, string details, int durationSeconds = 5, bool isUrgent = false, string imageKey = null, string imageText = null, bool isMentalBreak = false, bool isThreatAlert = false)
         {
             if (string.IsNullOrEmpty(state) && string.IsNullOrEmpty(details))
                 return;
 
-            bool showThreatAlerts = RimCordMod.Settings == null || RimCordMod.Settings.ShowThreatAlerts;
-            if (RaidTracker.IsRaidActive() && !isMentalBreak && showThreatAlerts)
+            bool showThreatAlerts = RimCordMod.Settings == null ||
+                (RimCordMod.Settings.ShowLetterEvents && RimCordMod.Settings.ShowThreatAlerts);
+            if (showThreatAlerts && !isMentalBreak && RaidTracker.IsRaidActive())
                 return;
 
-            int durationTicks = durationSeconds * 60;
-            if (durationTicks <= 0)
-                durationTicks = DefaultDurationTicks;
-
-            var tickManager = Find.TickManager;
-            int ticksGame = tickManager != null ? tickManager.TicksGame : 0;
+            if (durationSeconds <= 0)
+                durationSeconds = DefaultDurationSeconds;
 
             eventInstance.State = state;
             eventInstance.Details = details;
-            eventInstance.DurationTicks = durationTicks;
             eventInstance.IsUrgent = isUrgent;
             eventInstance.IsThreatAlert = isThreatAlert;
+            eventInstance.IsMentalBreak = isMentalBreak;
             eventInstance.ImageKey = imageKey;
             eventInstance.ImageText = imageText;
-            eventInstance.StartedAtTick = ticksGame;
+            eventInstance.ExpiresAtUtc = DateTime.UtcNow.AddSeconds(durationSeconds);
             hasActiveEvent = true;
         }
 
@@ -83,11 +88,7 @@ namespace RimCord.GameState
             if (!hasActiveEvent)
                 return null;
 
-            var tickManager = Find.TickManager;
-            int ticksGame = tickManager != null ? tickManager.TicksGame : 0;
-            int elapsed = ticksGame - eventInstance.StartedAtTick;
-
-            if (tickManager == null || elapsed < 0 || elapsed > eventInstance.DurationTicks)
+            if (DateTime.UtcNow >= eventInstance.ExpiresAtUtc)
             {
                 ClearCurrentEvent();
                 return null;

@@ -31,10 +31,6 @@ namespace RimCord
             Log.Warning(BuildMessage(string.Format(format, args)));
         }
 
-        // these do nothing in release, used for debugging without spamming the log
-        public static void SilentInfo(string message) { }
-        public static void SilentInfo(string format, params object[] args) { }
-
         public static void Error(string message)
         {
             Log.Error(BuildMessage(message));

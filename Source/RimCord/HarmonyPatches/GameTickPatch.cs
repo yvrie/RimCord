@@ -153,6 +153,11 @@ namespace RimCord.HarmonyPatches
         {
             try
             {
+                if (RimCordMod.Settings == null ||
+                    !RimCordMod.Settings.EnableRichPresence ||
+                    !RimCordMod.Settings.ShowColonistCount)
+                    return false;
+
                 if (pawn == null)
                     return false;
 
@@ -175,6 +180,11 @@ namespace RimCord.HarmonyPatches
         {
             try
             {
+                if (RimCordMod.Settings == null ||
+                    !RimCordMod.Settings.EnableRichPresence ||
+                    !RimCordMod.Settings.ShowColonistCount)
+                    return;
+
                 if (Current.ProgramState != ProgramState.Playing)
                     return;
 
@@ -252,33 +262,104 @@ namespace RimCord.HarmonyPatches
         }
     }
 
-    [HarmonyPatch]
-    public static class LetterStackPatch
+    internal static class LetterPresenceRefresh
     {
-        static IEnumerable<MethodBase> TargetMethods()
+        internal static void RefreshIfRecorded(bool recorded, string source)
         {
-            foreach (var method in typeof(LetterStack).GetMethods())
-            {
-                if (method.Name != "ReceiveLetter")
-                    continue;
+            if (!recorded)
+                return;
 
-                yield return method;
-            }
+            var manager = RimCordMod.PresenceManager;
+            if (manager == null || manager.IsDisposed)
+                return;
+
+            manager.Update(force: true);
+        }
+    }
+
+    [HarmonyPatch(typeof(LetterStack), nameof(LetterStack.ReceiveLetter),
+        new[] { typeof(TaggedString), typeof(TaggedString), typeof(LetterDef), typeof(LookTargets), typeof(Faction), typeof(Quest), typeof(List<ThingDef>), typeof(string), typeof(int), typeof(bool) })]
+    public static class LetterStackReceiveTargetsPatch
+    {
+        [HarmonyPrefix]
+        public static void Prefix(LetterStack __instance, ref int __state)
+        {
+            __state = LetterEventTracker.GetLetterCount(__instance);
         }
 
         [HarmonyPostfix]
-        public static void Postfix(object[] __args)
+        public static void Postfix(LetterStack __instance, TaggedString label, LetterDef textLetterDef, int __state)
         {
-            if (__args == null || __args.Length == 0)
-                return;
-
             try
             {
-                LetterEventTracker.NotifyReceiveLetterArguments(__args);
+                bool recorded = LetterEventTracker.NotifyAddedLetter(__instance, __state, label, textLetterDef);
+                LetterPresenceRefresh.RefreshIfRecorded(recorded, "ReceiveLetter targets");
             }
             catch (Exception ex)
             {
-                RimCordLogger.Warning("Error in LetterStackPatch.Postfix: {0}", ex.Message);
+                RimCordLogger.Warning("Error capturing target letter: {0}", ex.Message);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(LetterStack), nameof(LetterStack.ReceiveLetter),
+        new[] { typeof(TaggedString), typeof(TaggedString), typeof(LetterDef), typeof(string), typeof(int), typeof(bool) })]
+    public static class LetterStackReceiveLabelPatch
+    {
+        [HarmonyPrefix]
+        public static void Prefix(LetterStack __instance, ref int __state)
+        {
+            __state = LetterEventTracker.GetLetterCount(__instance);
+        }
+
+        [HarmonyPostfix]
+        public static void Postfix(LetterStack __instance, TaggedString label, LetterDef textLetterDef, int __state)
+        {
+            try
+            {
+                bool recorded = LetterEventTracker.NotifyAddedLetter(__instance, __state, label, textLetterDef);
+                LetterPresenceRefresh.RefreshIfRecorded(recorded, "ReceiveLetter label");
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("Error capturing label letter: {0}", ex.Message);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(LetterStack), nameof(LetterStack.ReceiveLetter),
+        new[] { typeof(Letter), typeof(string), typeof(int), typeof(bool) })]
+    public static class LetterStackReceiveInstancePatch
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Letter let)
+        {
+            try
+            {
+                bool recorded = LetterEventTracker.NotifyAddedLetter(let);
+                LetterPresenceRefresh.RefreshIfRecorded(recorded, "ReceiveLetter instance");
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("Error capturing letter instance: {0}", ex.Message);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(LetterStack), nameof(LetterStack.LetterStackUpdate))]
+    public static class LetterStackModFallbackPatch
+    {
+        [HarmonyPostfix]
+        public static void Postfix(LetterStack __instance)
+        {
+            try
+            {
+                bool recorded = LetterEventTracker.DetectLettersAddedByMods(__instance);
+                LetterPresenceRefresh.RefreshIfRecorded(recorded, "LetterStack mod fallback");
+            }
+            catch (Exception ex)
+            {
+                RimCordLogger.Warning("Error checking modded letters: {0}", ex.Message);
             }
         }
     }

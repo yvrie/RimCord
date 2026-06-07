@@ -20,9 +20,6 @@ namespace RimCord
         private bool lastPausedState;
         private TimeSpeed lastTimeSpeed = TimeSpeed.Normal;
         private DateTime? pauseStartedAtUtc;
-        private string lastEventState;
-        private string lastEventDetails;
-        private bool lastEventIsThreatAlert;
         private static long? sessionStartTimestamp;
         private bool wasConnected;
         private string lastStorytellerKey;
@@ -32,9 +29,7 @@ namespace RimCord
         private int reconnectAttempts;
         private long nextReconnectAllowedTick;
         private const int MaxReconnectDelayTicks = 3600;
-        private const double PauseDisplayDelaySeconds = 60.0;
         private const double ColonistAuditIntervalSeconds = 60.0;
-        private const double LetterEventRetentionSeconds = 180.0;
         private List<(string Label, string Url)> cachedButtonsPayload;
         private string lastButtonLabel;
         private string lastButtonUrl;
@@ -103,6 +98,8 @@ namespace RimCord
                     lastColonistAuditUtc = DateTime.MinValue;
                 }
 
+                bool detectPause = RimCordMod.Settings.EnablePauseDetection;
+                bool showColonistCount = RimCordMod.Settings.ShowColonistCount;
                 TickManager tickManager = null;
                 if (inGame)
                 {
@@ -119,7 +116,7 @@ namespace RimCord
                 long currentClock = GetUpdateClock(tickManager);
                 TimeSpeed currentTimeSpeed = TimeSpeed.Normal;
                 bool isPaused = false;
-                if (tickManager != null)
+                if (tickManager != null && detectPause)
                 {
                     try
                     {
@@ -142,7 +139,7 @@ namespace RimCord
                 }
 
                 bool displayPaused = false;
-                if (inGame && isPaused)
+                if (inGame && isPaused && detectPause)
                 {
                     var now = DateTime.UtcNow;
                     if (!pauseStartedAtUtc.HasValue)
@@ -150,7 +147,9 @@ namespace RimCord
                         pauseStartedAtUtc = now;
                     }
 
-                    displayPaused = (now - pauseStartedAtUtc.Value).TotalSeconds >= PauseDisplayDelaySeconds;
+                    int pauseDisplayDelaySeconds = RimCordMod.Settings.PauseDisplayDelaySeconds;
+                    displayPaused = pauseDisplayDelaySeconds <= 0
+                        || (now - pauseStartedAtUtc.Value).TotalSeconds >= pauseDisplayDelaySeconds;
                 }
                 else
                 {
@@ -171,7 +170,7 @@ namespace RimCord
                 }
 
                 int currentColonistCount = 0;
-                if (inGame)
+                if (inGame && showColonistCount)
                 {
                     try
                     {
@@ -189,7 +188,7 @@ namespace RimCord
 
                 try
                 {
-                    currentState = PresenceTextBuilder.BuildState(activity, inGame, displayPaused, currentColonistCount, TryGetRecentEventSnapshot);
+                    currentState = PresenceTextBuilder.BuildState(activity, inGame, displayPaused, currentColonistCount);
                 }
                 catch (Exception ex)
                 {
@@ -199,7 +198,7 @@ namespace RimCord
 
                 try
                 {
-                    currentDetails = PresenceTextBuilder.BuildDetails(activity, inGame, displayPaused, currentColonistCount, RimCordMod.Settings, TryGetRecentEventSnapshot);
+                    currentDetails = PresenceTextBuilder.BuildDetails(activity, inGame, displayPaused, currentColonistCount, RimCordMod.Settings);
                 }
                 catch (Exception ex)
                 {
@@ -225,7 +224,7 @@ namespace RimCord
                         wasConnected = false;
                         RequestDiscordConnection();
                         isConnected = discordIPC != null && discordIPC.IsConnected;
-                        
+
                         if (!isConnected)
                         {
                             reconnectAttempts++;
@@ -258,13 +257,13 @@ namespace RimCord
                     bool stateChanged = currentState != lastPresenceState
                         || currentDetails != lastPresenceDetails
                         || currentImageKey != lastImageKey
-                        || isPaused != lastPausedState
-                        || currentTimeSpeed != lastTimeSpeed
+                        || (detectPause && isPaused != lastPausedState)
+                        || (detectPause && currentTimeSpeed != lastTimeSpeed)
                         || currentStorytellerKey != lastStorytellerKey
                         || currentStorytellerText != lastStorytellerText
-                        || currentColonistCount != lastColonistCount;
+                        || (showColonistCount && currentColonistCount != lastColonistCount);
 
-                    bool colonistAuditDue = inGame && IsColonistAuditDue();
+                    bool colonistAuditDue = inGame && showColonistCount && IsColonistAuditDue();
                     if (!force && !stateChanged && !justReconnected && !colonistAuditDue)
                     {
                         return;
@@ -280,7 +279,7 @@ namespace RimCord
                     if (justReconnected)
                         reconnectAttempts = 0;
                     wasConnected = true;
-                    if (inGame)
+                    if (inGame && showColonistCount)
                         lastColonistAuditUtc = DateTime.UtcNow;
 
                     lastPresenceState = currentState;
@@ -301,16 +300,6 @@ namespace RimCord
             {
                 RimCordLogger.Warning("Error in PresenceManager.Update: {0} at {1}", ex.Message, ex.StackTrace);
             }
-        }
-
-        private (string State, string Details)? TryGetRecentEventSnapshot()
-        {
-            if (TryGetRecentEvent(out var state, out var details))
-            {
-                return (state, details);
-            }
-
-            return null;
         }
 
         private void RequestDiscordConnection()
@@ -534,77 +523,6 @@ namespace RimCord
         ~PresenceManager()
         {
             Dispose(false);
-        }
-
-        internal void RecordLetterEvent(string state, string details, bool isThreatAlert = false)
-        {
-            if (RimCordMod.Settings != null)
-            {
-                if (!RimCordMod.Settings.ShowLetterEvents)
-                {
-                    return;
-                }
-
-                if (isThreatAlert && !RimCordMod.Settings.ShowThreatAlerts)
-                {
-                    return;
-                }
-            }
-
-            RememberLastEvent(state, details, isThreatAlert);
-        }
-
-        internal void ClearRecentLetterEvent()
-        {
-            lastEventState = null;
-            lastEventDetails = null;
-            lastEventIsThreatAlert = false;
-            lastEventRecordedAt = DateTime.MinValue;
-        }
-
-        private DateTime lastEventRecordedAt = DateTime.MinValue;
-
-        private void RememberLastEvent(string state, string details, bool isThreatAlert)
-        {
-            if (string.IsNullOrEmpty(state) && string.IsNullOrEmpty(details))
-            {
-                return;
-            }
-
-            lastEventState = state;
-            lastEventDetails = details;
-            lastEventIsThreatAlert = isThreatAlert;
-            lastEventRecordedAt = DateTime.UtcNow;
-        }
-
-        private bool TryGetRecentEvent(out string state, out string details)
-        {
-            if (lastEventRecordedAt != DateTime.MinValue &&
-                (DateTime.UtcNow - lastEventRecordedAt).TotalSeconds > LetterEventRetentionSeconds)
-            {
-                ClearRecentLetterEvent();
-            }
-
-            if (RimCordMod.Settings != null)
-            {
-                if (!RimCordMod.Settings.ShowLetterEvents)
-                {
-                    state = null;
-                    details = null;
-                    return false;
-                }
-
-                if (lastEventIsThreatAlert && !RimCordMod.Settings.ShowThreatAlerts)
-                {
-                    state = null;
-                    details = null;
-                    return false;
-                }
-            }
-
-            state = lastEventState;
-            details = lastEventDetails;
-            return !string.IsNullOrEmpty(state) || !string.IsNullOrEmpty(details);
         }
 
         private long GetUpdateClock(TickManager tickManager)

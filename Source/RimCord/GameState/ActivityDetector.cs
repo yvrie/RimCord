@@ -31,7 +31,8 @@ namespace RimCord.GameState
             ActivityInfo highestPriority = null;
             int highestPriorityValue = -1;
             bool showLetterEvents = RimCordMod.Settings == null || RimCordMod.Settings.ShowLetterEvents;
-            bool showThreatAlerts = RimCordMod.Settings == null || RimCordMod.Settings.ShowThreatAlerts;
+            bool showThreatAlerts = showLetterEvents &&
+                (RimCordMod.Settings == null || RimCordMod.Settings.ShowThreatAlerts);
             bool showGameConditions = RimCordMod.Settings == null || RimCordMod.Settings.ShowGameConditions;
 
             var queuedEvent = PresenceEventQueue.GetCurrentEvent();
@@ -39,7 +40,7 @@ namespace RimCord.GameState
             {
                 queuedEventActivity.IsUrgent = queuedEvent.IsUrgent;
                 queuedEventActivity.StateOverride = queuedEvent.State;
-                queuedEventActivity.DetailsOverride = queuedEvent.Details;
+                queuedEventActivity.DetailsOverride = null;
                 queuedEventActivity.LargeImageKey = queuedEvent.ImageKey;
                 queuedEventActivity.LargeImageText = queuedEvent.ImageText;
                 

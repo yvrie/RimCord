@@ -47,6 +47,11 @@ namespace RimCord.GameState
             return cachedIsRaidActive;
         }
 
+        public static void InvalidateCache()
+        {
+            cachedRaidCheckTick = -1;
+        }
+
         private static bool ComputeIsRaidActive(Map map)
         {
             bool hasActiveRaid = HasActiveRaidIncident(map);
@@ -73,12 +78,7 @@ namespace RimCord.GameState
                 return true;
             }
 
-            bool removed = ForgetRaid(map);
-            if (removed || lastRaidEventTime.HasValue)
-            {
-                string mapLabel = map?.Parent?.Label ?? map?.ToStringSafe() ?? "Unknown map";
-                RimCordLogger.SilentInfo("Raid cleared on {0}", mapLabel);
-            }
+            ForgetRaid(map);
 
             lastRaidFactionName = null;
             lastRaidEventTime = null;
@@ -120,10 +120,6 @@ namespace RimCord.GameState
             }
 
             RememberRaid(map, parms.faction, parms, overwrite: true);
-
-            string mapLabel = map?.Parent?.Label ?? map?.ToStringSafe() ?? "Unknown map";
-            string factionName = parms.faction?.Name ?? parms.faction?.def?.label ?? "Unknown faction";
-            RimCordLogger.SilentInfo("Raid incident triggered on {0}: {1}", mapLabel, factionName);
         }
 
         private static bool HasActiveRaidIncident(Map map)
@@ -269,11 +265,11 @@ namespace RimCord.GameState
                 if (faction != null)
                 {
                     RememberRaid(map, faction);
-                    break;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
 
         private static bool CheckForRaidPawns(Map map)
@@ -614,4 +610,3 @@ namespace RimCord.GameState
 
     }
 }
-

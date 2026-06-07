@@ -10,6 +10,11 @@ namespace RimCord.HarmonyPatches
         {
             try
             {
+                if (RimCordMod.Settings == null ||
+                    !RimCordMod.Settings.EnableRichPresence ||
+                    !RimCordMod.Settings.EnablePauseDetection)
+                    return;
+
                 if (Current.ProgramState != ProgramState.Playing)
                     return;
 

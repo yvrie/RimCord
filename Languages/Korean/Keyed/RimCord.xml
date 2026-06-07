@@ -1,25 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
-    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
-    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
-    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
+    <RimCord_Settings_Section_Status>상태 표시</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_MainMenu>메인 메뉴</RimCord_Settings_Section_MainMenu>
+    <RimCord_Settings_Section_Events>이벤트 및 알림</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>사용자 지정 버튼</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>RimCord 설정</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>RimWorld용 Discord Rich Presence 통합 구성</RimCord_Settings_HeaderDesc>
-    
+
     <RimCord_EnableRichPresence>Rich Presence 활성화</RimCord_EnableRichPresence>
     <RimCord_EnableRichPresenceDesc>Discord Rich Presence 통합의 메인 스위치</RimCord_EnableRichPresenceDesc>
-    
+
     <RimCord_ShowColonyName>식민지 이름 표시</RimCord_ShowColonyName>
     <RimCord_ShowColonyNameDesc>Discord 상태에 식민지 이름 표시</RimCord_ShowColonyNameDesc>
-    
+
     <RimCord_ShowColonistCount>식민지 주민 수 표시</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>현재 식민지 주민 수 표시</RimCord_ShowColonistCountDesc>
-    
-    
+
+
+    <RimCord_EnablePauseDetection>일시정지 상태 감지</RimCord_EnablePauseDetection>
+    <RimCord_EnablePauseDetectionDesc>게임이 일시정지되면 Discord에 일시정지 상태 표시</RimCord_EnablePauseDetectionDesc>
+    <RimCord_PauseDisplayDelaySeconds>일시정지 표시 지연 시간(초, 0-3600)</RimCord_PauseDisplayDelaySeconds>
+    <RimCord_PauseDisplayDelaySecondsDesc>RimCord가 일시정지 상태를 표시하기 전 기다리는 시간입니다. 0은 즉시 표시합니다.</RimCord_PauseDisplayDelaySecondsDesc>
+    <RimCord_PauseDisplayDelayRangeWarning>일시정지 지연 시간은 0에서 3600초 사이의 숫자여야 합니다</RimCord_PauseDisplayDelayRangeWarning>
+    <RimCord_ShowMainMenuModCount>메인 메뉴 모드 수 표시</RimCord_ShowMainMenuModCount>
+    <RimCord_ShowMainMenuModCountDesc>메인 메뉴를 보는 동안 활성화된 비공식 모드 수 표시</RimCord_ShowMainMenuModCountDesc>
+
     <RimCord_ShowBiome>생물군계 표시</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Discord 상태에 현재 생물군계 표시</RimCord_ShowBiomeDesc>
-    
+
     <RimCord_ShowStorytellerIcon>스토리텔러 아이콘 표시</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>현재 스토리텔러(카산드라, 피비, 랜디 등)의 아이콘을 Discord 소형 이미지에 표시</RimCord_ShowStorytellerIconDesc>
     <RimCord_ShowLetterEvents>서신 이벤트 표시</RimCord_ShowLetterEvents>
@@ -28,8 +37,8 @@
     <RimCord_ShowThreatAlertsDesc>Discord 상태에 습격과 정신 붕괴 경보를 표시합니다</RimCord_ShowThreatAlertsDesc>
     <RimCord_ShowGameConditions>게임 상태 표시</RimCord_ShowGameConditions>
     <RimCord_ShowGameConditionsDesc>Discord 상태에 독성 낙진이나 태양 플레어 같은 활성 게임 상태를 표시합니다</RimCord_ShowGameConditionsDesc>
-    
-    
+
+
     <RimCord_EnableCustomButton>사용자 정의 Discord 버튼 활성화</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Rich Presence에 클릭 가능한 버튼 추가 (Twitch, Patreon 등)</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>주의: 버튼은 프로필을 보는 다른 사람들에게만 보이며, 본인에게는 보이지 않습니다.</RimCord_ButtonNote>
@@ -37,36 +46,36 @@
     <RimCord_CustomButtonLabel>버튼 라벨 (최대 32자)</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>버튼 URL (https://로 시작해야 함)</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>URL은 Discord 버튼에 유효하려면 https://로 시작해야 합니다</RimCord_UrlWarning>
-    
+
     <!-- Status Messages -->
     <RimCord_Status_Playing>RimWorld 플레이 중</RimCord_Status_Playing>
     <RimCord_Status_PlayingRimWorld>RimWorld 플레이 중</RimCord_Status_PlayingRimWorld>
     <RimCord_Status_Paused>게임 일시 중지됨</RimCord_Status_Paused>
-    
+
     <!-- Activity Messages -->
     <RimCord_Activity_Raid>공격받는 중!</RimCord_Activity_Raid>
     <RimCord_Activity_MentalBreak>정신 붕괴 관리 중</RimCord_Activity_MentalBreak>
-    
+
     <!-- Game Info -->
     <RimCord_Colonist>식민지 주민</RimCord_Colonist>
     <RimCord_Colonists>식민지 주민</RimCord_Colonists>
     <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>년</RimCord_Year>
-    
+
     <!-- Menu -->
     <RimCord_MainMenu>메인 메뉴</RimCord_MainMenu>
     <RimCord_BrowsingMods>모드 및 설정 탐색 중</RimCord_BrowsingMods>
-    
+
     <!-- Events -->
     <RimCord_UnderAttack>공격받는 중!</RimCord_UnderAttack>
     <RimCord_RaidBy>{0}의 습격</RimCord_RaidBy>
     <RimCord_MentalBreak>정신 붕괴</RimCord_MentalBreak>
     <RimCord_Event>이벤트</RimCord_Event>
-    
+
     <!-- Mod Count -->
     <RimCord_Mod>개 모드</RimCord_Mod>
     <RimCord_Mods>개 모드</RimCord_Mods>
-    
+
     <!-- Paused Context -->
     <RimCord_Paused_Planning>계획 중</RimCord_Paused_Planning>
     <RimCord_Paused_Raid_Interior>일시정지: 내부에 착륙!</RimCord_Paused_Raid_Interior>

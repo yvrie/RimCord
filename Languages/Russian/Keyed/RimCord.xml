@@ -1,25 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
-    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
-    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
-    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
+    <RimCord_Settings_Section_Status>Отображение статуса</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_MainMenu>Главное меню</RimCord_Settings_Section_MainMenu>
+    <RimCord_Settings_Section_Events>События и оповещения</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>Пользовательская кнопка</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>Настройки RimCord</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>Настройка интеграции Discord Rich Presence для RimWorld</RimCord_Settings_HeaderDesc>
-    
+
     <RimCord_EnableRichPresence>Включить Rich Presence</RimCord_EnableRichPresence>
     <RimCord_EnableRichPresenceDesc>Главный переключатель интеграции Discord Rich Presence</RimCord_EnableRichPresenceDesc>
-    
+
     <RimCord_ShowColonyName>Показывать название колонии</RimCord_ShowColonyName>
     <RimCord_ShowColonyNameDesc>Отображать название вашей колонии в статусе Discord</RimCord_ShowColonyNameDesc>
-    
+
     <RimCord_ShowColonistCount>Показывать количество колонистов</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Отображать текущее количество колонистов</RimCord_ShowColonistCountDesc>
-    
-    
+
+
+    <RimCord_EnablePauseDetection>Определять состояние паузы</RimCord_EnablePauseDetection>
+    <RimCord_EnablePauseDetectionDesc>Показывать статус паузы в Discord, когда игра приостановлена</RimCord_EnablePauseDetectionDesc>
+    <RimCord_PauseDisplayDelaySeconds>Задержка отображения паузы в секундах (0-3600)</RimCord_PauseDisplayDelaySeconds>
+    <RimCord_PauseDisplayDelaySecondsDesc>Сколько RimCord ждёт перед показом статуса паузы. 0 показывает его сразу.</RimCord_PauseDisplayDelaySecondsDesc>
+    <RimCord_PauseDisplayDelayRangeWarning>Задержка паузы должна быть числом от 0 до 3600 секунд</RimCord_PauseDisplayDelayRangeWarning>
+    <RimCord_ShowMainMenuModCount>Показывать количество модов в главном меню</RimCord_ShowMainMenuModCount>
+    <RimCord_ShowMainMenuModCountDesc>Отображать количество активных неофициальных модов при просмотре главного меню</RimCord_ShowMainMenuModCountDesc>
+
     <RimCord_ShowBiome>Показывать биом</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Отображать текущий биом в статусе Discord</RimCord_ShowBiomeDesc>
-    
+
     <RimCord_ShowStorytellerIcon>Показывать иконку рассказчика</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Использовать маленькое изображение Discord для текущего рассказчика (Кассандра, Фиби, Рэнди или моды)</RimCord_ShowStorytellerIconDesc>
     <RimCord_ShowLetterEvents>Показывать события писем</RimCord_ShowLetterEvents>
@@ -28,8 +37,8 @@
     <RimCord_ShowThreatAlertsDesc>Показывать в статусе Discord оповещения о рейдах и психических срывах</RimCord_ShowThreatAlertsDesc>
     <RimCord_ShowGameConditions>Показывать игровые условия</RimCord_ShowGameConditions>
     <RimCord_ShowGameConditionsDesc>Показывать активные игровые условия, такие как токсические осадки или солнечная вспышка, в статусе Discord</RimCord_ShowGameConditionsDesc>
-    
-    
+
+
     <RimCord_EnableCustomButton>Включить пользовательскую кнопку Discord</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Добавляет кликабельную кнопку в Rich Presence (Twitch, Patreon и т.д.)</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>Примечание: Кнопки видны только другим, кто просматривает ваш профиль, а не вам.</RimCord_ButtonNote>
@@ -37,36 +46,36 @@
     <RimCord_CustomButtonLabel>Текст кнопки (макс. 32 символа)</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>URL кнопки (должен начинаться с https://)</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>URL должен начинаться с https:// для работы с кнопками Discord</RimCord_UrlWarning>
-    
+
     <!-- Status Messages -->
     <RimCord_Status_Playing>Играет в RimWorld</RimCord_Status_Playing>
     <RimCord_Status_PlayingRimWorld>Играет в RimWorld</RimCord_Status_PlayingRimWorld>
     <RimCord_Status_Paused>Игра приостановлена</RimCord_Status_Paused>
-    
+
     <!-- Activity Messages -->
     <RimCord_Activity_Raid>ПОД АТАКОЙ!</RimCord_Activity_Raid>
     <RimCord_Activity_MentalBreak>Управляет психическими срывами</RimCord_Activity_MentalBreak>
-    
+
     <!-- Game Info -->
     <RimCord_Colonist>колонист</RimCord_Colonist>
     <RimCord_Colonists>колонистов</RimCord_Colonists>
     <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>Год</RimCord_Year>
-    
+
     <!-- Menu -->
     <RimCord_MainMenu>Главное Меню</RimCord_MainMenu>
     <RimCord_BrowsingMods>Просмотр модов и настроек</RimCord_BrowsingMods>
-    
+
     <!-- Events -->
     <RimCord_UnderAttack>ПОД АТАКОЙ!</RimCord_UnderAttack>
     <RimCord_RaidBy>Налёт {0}</RimCord_RaidBy>
     <RimCord_MentalBreak>Психический Срыв</RimCord_MentalBreak>
     <RimCord_Event>Событие</RimCord_Event>
-    
+
     <!-- Mod Count -->
     <RimCord_Mod>мод</RimCord_Mod>
     <RimCord_Mods>модов</RimCord_Mods>
-    
+
     <!-- Paused Context -->
     <RimCord_Paused_Planning>Планирование</RimCord_Paused_Planning>
     <RimCord_Paused_Raid_Interior>Пауза: Они высадились внутри!</RimCord_Paused_Raid_Interior>

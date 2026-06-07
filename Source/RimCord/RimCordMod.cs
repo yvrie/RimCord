@@ -56,7 +56,7 @@ namespace RimCord
                 RimCordLogger.Error("Failed to initialize PresenceManager: {0}", ex.Message);
             }
 
-            RimCordLogger.Info("<color=#FF6B6B>M</color><color=#FFA94D>o</color><color=#FFE066>d</color> <color=#69DB7C>i</color><color=#38D9A9>n</color><color=#4DABF7>i</color><color=#748FFC>t</color><color=#DA77F2>i</color><color=#F783AC>a</color><color=#FF6B6B>l</color><color=#FFA94D>i</color><color=#FFE066>z</color><color=#69DB7C>e</color><color=#38D9A9>d</color> <color=#4DABF7>s</color><color=#748FFC>u</color><color=#DA77F2>c</color><color=#F783AC>c</color><color=#FF6B6B>e</color><color=#FFA94D>s</color><color=#FFE066>s</color><color=#69DB7C>f</color><color=#38D9A9>u</color><color=#4DABF7>l</color><color=#748FFC>l</color><color=#DA77F2>y</color><color=#F783AC>!</color>");
+            RimCordLogger.Info("Initialized successfully.");
             IsInitialized = true;
         }
 

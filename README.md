@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 # RimCord
 
@@ -32,14 +32,21 @@
 <td><img src="preview/Discord_mentalbreak.png" width="280" alt="Mental break with pawn name"></td>
 <td><img src="preview/Discord_paused.png" width="280" alt="Paused with context info"></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><b>Settings</b></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="preview/Rimworld_settings.gif" width="580" alt="RimCord settings preview"></td>
+</tr>
 </table>
+
 </div>
 
 ---
 
 ## What is this?
 
-RimCord adds Discord Rich Presence to RimWorld. Your friends can see what colony you are running, how many colonists you have, and when major colony events happen.
+RimCord adds Discord Rich Presence to RimWorld. Your friends can see what colony you are running, how many colonists you have, what is happening in your game, and when major colony events happen.
 
 > [!NOTE]
 > Discord is limited to one presence update every 15 seconds. If multiple events occur within that window, the most recent event will be shown.
@@ -56,11 +63,15 @@ RimCord adds Discord Rich Presence to RimWorld. Your friends can see what colony
 
 **Threat and event context** - Raids, mental breaks, game conditions, and other letters can update your status. Letter events, threat alerts, and game conditions can be toggled separately.
 
-**Pause context** - If the game stays paused for about 1 minute, Discord can show what is happening, such as:
+**Pause detection** - If the game stays paused for the configured delay, Discord can show what is happening instead of stale colony status.
+
+Examples:
 - `Paused: Planning counter-attack`
-- `Paused: Val is Berserk`
+- `Paused: Yvrie is Berserk`
 - `Paused: Haggling with orbital traders`
 - `Paused: Frozen wasteland`
+
+**Configurable pause delay** - Pause detection can be enabled or disabled, and the display delay can be adjusted in settings. Invalid delay values are automatically range-checked.
 
 **Main menu status** - Shows `Main Menu` with the current active mod count.
 
@@ -92,6 +103,8 @@ You can toggle what shows up in your status:
 - Letter events
 - Threat alerts (raids + mental breaks)
 - Game conditions
+- Pause detection
+- Pause display delay
 - Custom button label and HTTPS URL
 
 ---
@@ -106,6 +119,9 @@ Press `Ctrl+R` in Discord to refresh.
 
 **Colonist count looks stale?**
 Leave the colony running for about a minute. RimCord refreshes the count regularly while you play.
+
+**Pause status not showing?**
+Make sure pause detection is enabled in RimCord settings. The game must stay paused for the configured delay before Discord updates.
 
 **Can't see my own button?**
 That's normal. Discord hides buttons from yourself - others can see it though.
@@ -129,6 +145,6 @@ MIT
 
 <div align="center">
 
-**[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3599106147)** | **[Report Issues](https://github.com/L0veNote/RimCord/issues)**
+**[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3599106147)** | **[Report Issues](https://github.com/yvrie/RimCord/issues)**
 
 </div>

@@ -16,7 +16,8 @@ namespace RimCord.GameState
                 if (map == null)
                     return GetFallbackText("RimCord_Paused_Planning");
 
-                bool showThreatAlerts = settings == null || settings.ShowThreatAlerts;
+                bool showThreatAlerts = settings == null ||
+                    (settings.ShowLetterEvents && settings.ShowThreatAlerts);
                 bool showGameConditions = settings == null || settings.ShowGameConditions;
 
                 if (showThreatAlerts)

@@ -1,25 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Settings -->
-    <RimCord_Settings_Section_Status>Status Display</RimCord_Settings_Section_Status>
-    <RimCord_Settings_Section_Events>Events &amp; Alerts</RimCord_Settings_Section_Events>
-    <RimCord_Settings_Section_Button>Custom Button</RimCord_Settings_Section_Button>
+    <RimCord_Settings_Section_Status>Visualización de estado</RimCord_Settings_Section_Status>
+    <RimCord_Settings_Section_MainMenu>Menú principal</RimCord_Settings_Section_MainMenu>
+    <RimCord_Settings_Section_Events>Eventos y alertas</RimCord_Settings_Section_Events>
+    <RimCord_Settings_Section_Button>Botón personalizado</RimCord_Settings_Section_Button>
     <RimCord_Settings_Header>Configuración RimCord</RimCord_Settings_Header>
     <RimCord_Settings_HeaderDesc>Configurar integración Discord Rich Presence para RimWorld</RimCord_Settings_HeaderDesc>
-    
+
     <RimCord_EnableRichPresence>Activar Rich Presence</RimCord_EnableRichPresence>
     <RimCord_EnableRichPresenceDesc>Interruptor principal para integración Discord Rich Presence</RimCord_EnableRichPresenceDesc>
-    
+
     <RimCord_ShowColonyName>Mostrar nombre de colonia</RimCord_ShowColonyName>
     <RimCord_ShowColonyNameDesc>Mostrar el nombre de tu colonia en el estado de Discord</RimCord_ShowColonyNameDesc>
-    
+
     <RimCord_ShowColonistCount>Mostrar número de colonos</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Mostrar el número actual de colonos</RimCord_ShowColonistCountDesc>
-    
-    
+
+
+    <RimCord_EnablePauseDetection>Detectar estado de pausa</RimCord_EnablePauseDetection>
+    <RimCord_EnablePauseDetectionDesc>Muestra el estado en pausa en Discord cuando el juego está pausado</RimCord_EnablePauseDetectionDesc>
+    <RimCord_PauseDisplayDelaySeconds>Retraso para mostrar pausa en segundos (0-3600)</RimCord_PauseDisplayDelaySeconds>
+    <RimCord_PauseDisplayDelaySecondsDesc>Cuánto espera RimCord antes de mostrar el estado en pausa. Usa 0 para mostrarlo al instante.</RimCord_PauseDisplayDelaySecondsDesc>
+    <RimCord_PauseDisplayDelayRangeWarning>El retraso de pausa debe ser un número de 0 a 3600 segundos</RimCord_PauseDisplayDelayRangeWarning>
+    <RimCord_ShowMainMenuModCount>Mostrar número de mods en el menú principal</RimCord_ShowMainMenuModCount>
+    <RimCord_ShowMainMenuModCountDesc>Muestra el número de mods no oficiales activos al navegar por el menú principal</RimCord_ShowMainMenuModCountDesc>
+
     <RimCord_ShowBiome>Mostrar bioma</RimCord_ShowBiome>
     <RimCord_ShowBiomeDesc>Muestra el bioma actual en el estado de Discord</RimCord_ShowBiomeDesc>
-    
+
     <RimCord_ShowStorytellerIcon>Mostrar icono del narrador</RimCord_ShowStorytellerIcon>
     <RimCord_ShowStorytellerIconDesc>Usa la imagen pequeña de Discord para el narrador actual (Cassandra, Phoebe, Randy o modded)</RimCord_ShowStorytellerIconDesc>
     <RimCord_ShowLetterEvents>Mostrar eventos de cartas</RimCord_ShowLetterEvents>
@@ -28,8 +37,8 @@
     <RimCord_ShowThreatAlertsDesc>Mostrar alertas de incursiones y crisis mentales en el estado de Discord</RimCord_ShowThreatAlertsDesc>
     <RimCord_ShowGameConditions>Mostrar condiciones del juego</RimCord_ShowGameConditions>
     <RimCord_ShowGameConditionsDesc>Mostrar condiciones activas del juego como lluvia tóxica o llamarada solar en el estado de Discord</RimCord_ShowGameConditionsDesc>
-    
-    
+
+
     <RimCord_EnableCustomButton>Activar botón personalizado de Discord</RimCord_EnableCustomButton>
     <RimCord_EnableCustomButtonDesc>Añade un botón clicable a tu Rich Presence (Twitch, Patreon, etc.)</RimCord_EnableCustomButtonDesc>
     <RimCord_ButtonNote>Nota: Los botones solo son visibles para otros que vean tu perfil, no para ti mismo.</RimCord_ButtonNote>
@@ -37,36 +46,36 @@
     <RimCord_CustomButtonLabel>Etiqueta del botón (máx 32 caracteres)</RimCord_CustomButtonLabel>
     <RimCord_CustomButtonUrl>URL del botón (debe empezar con https://)</RimCord_CustomButtonUrl>
     <RimCord_UrlWarning>La URL debe empezar con https:// para ser válida en botones de Discord</RimCord_UrlWarning>
-    
+
     <!-- Status Messages -->
     <RimCord_Status_Playing>Jugando RimWorld</RimCord_Status_Playing>
     <RimCord_Status_PlayingRimWorld>Jugando RimWorld</RimCord_Status_PlayingRimWorld>
     <RimCord_Status_Paused>Juego pausado</RimCord_Status_Paused>
-    
+
     <!-- Activity Messages -->
     <RimCord_Activity_Raid>¡BAJO ATAQUE!</RimCord_Activity_Raid>
     <RimCord_Activity_MentalBreak>Gestionando crisis mentales</RimCord_Activity_MentalBreak>
-    
+
     <!-- Game Info -->
     <RimCord_Colonist>colono</RimCord_Colonist>
     <RimCord_Colonists>colonos</RimCord_Colonists>
     <RimCord_ColonyLost>Colony Lost</RimCord_ColonyLost>
     <RimCord_Year>Año</RimCord_Year>
-    
+
     <!-- Menu -->
     <RimCord_MainMenu>Menú Principal</RimCord_MainMenu>
     <RimCord_BrowsingMods>Explorando mods y configuración</RimCord_BrowsingMods>
-    
+
     <!-- Events -->
     <RimCord_UnderAttack>¡BAJO ATAQUE!</RimCord_UnderAttack>
     <RimCord_RaidBy>Asalto de {0}</RimCord_RaidBy>
     <RimCord_MentalBreak>Crisis Mental</RimCord_MentalBreak>
     <RimCord_Event>Evento</RimCord_Event>
-    
+
     <!-- Mod Count -->
     <RimCord_Mod>mod</RimCord_Mod>
     <RimCord_Mods>mods</RimCord_Mods>
-    
+
     <!-- Paused Context -->
     <RimCord_Paused_Planning>Planificando</RimCord_Paused_Planning>
     <RimCord_Paused_Raid_Interior>Pausado: ¡Cayeron adentro!</RimCord_Paused_Raid_Interior>

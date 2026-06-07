@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using RimWorld;
@@ -15,6 +16,8 @@ namespace RimCord.GameState
         private static DateTime lastRecordedAtUtc = DateTime.MinValue;
         private static string lastRecordedState;
         private static string lastRecordedDetails;
+        private static LetterStack observedLetterStack;
+        private static readonly HashSet<Letter> observedLetters = new HashSet<Letter>();
         private static readonly MethodInfo GetMouseoverMethod = typeof(Letter).GetMethod("GetMouseoverText", BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static readonly Regex GrammarStarPattern = new Regex(@"\(\*[^)]*\)", RegexOptions.Compiled);
@@ -23,11 +26,11 @@ namespace RimCord.GameState
         private static readonly Regex TagPattern = new Regex(@"<[^>]+>", RegexOptions.Compiled);
         private static readonly Regex WhitespacePattern = new Regex(@"\s+", RegexOptions.Compiled);
 
-        public static void NotifyLetter(Letter letter)
+        public static bool NotifyLetter(Letter letter)
         {
             if (letter == null)
             {
-                return;
+                return false;
             }
 
             var label = letter.Label;
@@ -39,62 +42,94 @@ namespace RimCord.GameState
                 state = letter.def?.LabelCap ?? "RimCord_Event".Translate();
             }
 
-            RecordLetterEvent(letter, letter.def, state, text);
+            return RecordLetterEvent(letter, letter.def, state, text);
         }
 
-        public static void NotifyReceiveLetterArguments(object[] args)
+        public static int GetLetterCount(LetterStack letterStack)
         {
-            if (args == null || args.Length == 0)
+            var letters = letterStack?.LettersListForReading;
+            return letters?.Count ?? 0;
+        }
+
+        public static bool NotifyAddedLetter(LetterStack letterStack, int previousCount, TaggedString fallbackLabel, LetterDef fallbackDef)
+        {
+            var letters = letterStack?.LettersListForReading;
+            if (letters != null && letters.Count > previousCount)
             {
-                return;
-            }
-
-            foreach (var arg in args)
-            {
-                if (arg is Letter letter)
+                Letter newestLetter = letters[letters.Count - 1];
+                if (newestLetter != null)
                 {
-                    NotifyLetter(letter);
-                    return;
-                }
-            }
-
-            string state = null;
-            string text = null;
-            LetterDef def = null;
-
-            foreach (var arg in args)
-            {
-                if (def == null && arg is LetterDef letterDef)
-                {
-                    def = letterDef;
-                    continue;
-                }
-
-                string value = ResolveTextArgument(arg);
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    continue;
-                }
-
-                if (state == null)
-                {
-                    state = value;
-                }
-                else if (text == null)
-                {
-                    text = value;
+                    observedLetters.Add(newestLetter);
+                    return NotifyLetter(newestLetter);
                 }
             }
 
+            string state = StripGrammarTokens(ResolveTaggedString(fallbackLabel));
             if (string.IsNullOrWhiteSpace(state))
             {
-                state = def?.LabelCap ?? "RimCord_Event".Translate();
+                state = fallbackDef?.LabelCap ?? "RimCord_Event".Translate();
             }
 
-            RecordLetterEvent(null, def, state, text);
+            return RecordLetterEvent(null, fallbackDef, state, null);
         }
 
-        private static void RecordLetterEvent(Letter letter, LetterDef def, string state, string text)
+        public static bool NotifyAddedLetter(Letter letter)
+        {
+            if (letter != null)
+            {
+                observedLetters.Add(letter);
+            }
+
+            return NotifyLetter(letter);
+        }
+
+        public static bool DetectLettersAddedByMods(LetterStack letterStack)
+        {
+            if (letterStack == null)
+            {
+                return false;
+            }
+
+            var letters = letterStack.LettersListForReading;
+            if (!ReferenceEquals(observedLetterStack, letterStack))
+            {
+                observedLetterStack = letterStack;
+                observedLetters.Clear();
+                if (letters != null)
+                {
+                    foreach (Letter existingLetter in letters)
+                    {
+                        if (existingLetter != null)
+                        {
+                            observedLetters.Add(existingLetter);
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            if (letters == null || letters.Count == 0)
+            {
+                observedLetters.Clear();
+                return false;
+            }
+
+            observedLetters.RemoveWhere(letter => letter == null || !letters.Contains(letter));
+
+            bool recorded = false;
+            foreach (Letter letter in letters)
+            {
+                if (letter != null && observedLetters.Add(letter))
+                {
+                    recorded |= NotifyLetter(letter);
+                }
+            }
+
+            return recorded;
+        }
+
+        private static bool RecordLetterEvent(Letter letter, LetterDef def, string state, string text)
         {
             state = StripGrammarTokens(TrimAndLimit(state, MaxDetailsLength));
             string detectionText = StripGrammarTokens(TrimAndLimit(CombineLabelAndBody(state, text), MaxDetailsLength));
@@ -113,32 +148,28 @@ namespace RimCord.GameState
             {
                 if (!settings.ShowLetterEvents)
                 {
-                    return;
+                    return false;
                 }
 
                 if (isMentalBreak && !settings.ShowThreatAlerts)
                 {
-                    return;
+                    return false;
                 }
             }
 
             if (ShouldIgnoreLetter(letter, state, detectionText))
             {
-                return;
+                return false;
             }
 
             if (IsDuplicateEvent(state, details))
             {
-                return;
+                return false;
             }
 
-            PresenceEventQueue.Enqueue(state, details, durationSeconds: DefaultDurationSeconds, isUrgent: isUrgent, isMentalBreak: isMentalBreak, isThreatAlert: isMentalBreak);
+            PresenceEventQueue.Enqueue(state, null, durationSeconds: DefaultDurationSeconds, isUrgent: isUrgent, isMentalBreak: isMentalBreak, isThreatAlert: isMentalBreak);
             RememberDuplicateKey(state, details);
-
-            if (RimCordMod.PresenceManager != null)
-            {
-                RimCordMod.PresenceManager.RecordLetterEvent(state, details, isMentalBreak);
-            }
+            return true;
         }
 
         private static string TryGetLetterText(Letter letter)
@@ -214,7 +245,11 @@ namespace RimCord.GameState
                 return normalizedLabel;
             }
 
-            if (normalizedBody.StartsWith(normalizedLabel, StringComparison.OrdinalIgnoreCase))
+            if (TextUtil.AreEquivalent(normalizedLabel, normalizedBody) ||
+                !string.Equals(
+                    TextUtil.RemoveRepeatedPrefix(normalizedBody, normalizedLabel),
+                    normalizedBody,
+                    StringComparison.Ordinal))
             {
                 return normalizedBody;
             }
@@ -224,22 +259,17 @@ namespace RimCord.GameState
 
         private static string BuildBriefDetails(string state, string body)
         {
-            string fallback = StripGrammarTokens(TrimAndLimit(state, MaxBriefDetailsLength));
-            string summary = ExtractBriefSummary(body);
-            if (string.IsNullOrWhiteSpace(summary))
-            {
-                return fallback;
-            }
-
             string cleanState = StripGrammarTokens(state);
-            if (!string.IsNullOrEmpty(cleanState) && summary.StartsWith(cleanState, StringComparison.OrdinalIgnoreCase))
+            string distinctBody = TextUtil.RemoveRepeatedPrefix(StripGrammarTokens(body), cleanState);
+            if (string.IsNullOrWhiteSpace(distinctBody))
             {
-                summary = summary.Substring(cleanState.Length).TrimStart(' ', ':', '-', '.', '!', '?');
+                return null;
             }
 
-            if (string.IsNullOrWhiteSpace(summary) || string.Equals(summary, cleanState, StringComparison.OrdinalIgnoreCase))
+            string summary = ExtractBriefSummary(distinctBody);
+            if (string.IsNullOrWhiteSpace(summary) || TextUtil.AreEquivalent(summary, cleanState))
             {
-                return fallback;
+                return null;
             }
 
             return TrimAndLimit(summary, MaxBriefDetailsLength);
@@ -383,8 +413,11 @@ namespace RimCord.GameState
                 return false;
             }
 
-            return string.Equals(state, lastRecordedState, StringComparison.Ordinal)
-                && string.Equals(details, lastRecordedDetails, StringComparison.Ordinal);
+            bool sameState = TextUtil.AreEquivalent(state, lastRecordedState)
+                || (string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(lastRecordedState));
+            bool sameDetails = TextUtil.AreEquivalent(details, lastRecordedDetails)
+                || (string.IsNullOrWhiteSpace(details) && string.IsNullOrWhiteSpace(lastRecordedDetails));
+            return sameState && sameDetails;
         }
 
         private static void RememberDuplicateKey(string state, string details)

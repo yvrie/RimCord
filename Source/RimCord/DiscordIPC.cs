@@ -460,11 +460,7 @@ namespace RimCord
                 return;
             }
 
-            if (payload.IndexOf("\"evt\":\"ERROR\"", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                // Silently ignore transient Discord errors - they're common and not actionable
-            }
-            else if (payload.IndexOf("\"evt\":\"READY\"", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (payload.IndexOf("\"evt\":\"READY\"", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 RimCordLogger.Info("Discord IPC handshake completed.");
             }

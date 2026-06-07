@@ -59,7 +59,7 @@ namespace RimCord.GameState
                 {
                     if (pawn == null || pawn.Dead || !pawn.Spawned)
                         continue;
-                    
+
                     if (pawn.RaceProps?.Humanlike != true)
                         continue;
 

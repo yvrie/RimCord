@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using RimCord.GameState;
@@ -13,8 +13,17 @@ namespace RimCord
         internal const int MaxPresenceDetailsLength = 128;
         private static readonly List<string> detailsParts = new List<string>(8);
 
-        internal static string BuildState(ActivityInfo activity, bool inGame, bool isPaused, int colonistCount, Func<(string State, string Details)?> recentEventProvider)
+        internal static string BuildState(ActivityInfo activity, bool inGame, bool isPaused, int colonistCount)
         {
+            bool isQueuedEvent = activity != null && string.Equals(activity.Activity, "QueuedEvent", StringComparison.Ordinal);
+            bool isGameCondition = activity != null && string.Equals(activity.Activity, "GameCondition", StringComparison.Ordinal);
+
+            string eventState = GetEventStateLine(activity, false, isGameCondition);
+            if (!string.IsNullOrEmpty(eventState))
+            {
+                return LimitPresenceText(eventState);
+            }
+
             if (inGame && isPaused)
             {
                 return GetGenericInGameState(isPaused, colonistCount);
@@ -23,27 +32,9 @@ namespace RimCord
             if (inGame && RimCordMod.Settings?.ShowColonistCount == true)
                 return GetGenericInGameState(isPaused, colonistCount);
 
-            bool isQueuedEvent = activity != null && string.Equals(activity.Activity, "QueuedEvent", StringComparison.Ordinal);
-            bool isGameCondition = activity != null && string.Equals(activity.Activity, "GameCondition", StringComparison.Ordinal);
-
-            string eventState = GetEventStateLine(activity, isQueuedEvent, isGameCondition);
-            if (!string.IsNullOrEmpty(eventState))
-            {
-                return LimitPresenceText(eventState);
-            }
-
             if (activity != null && !isQueuedEvent && !isGameCondition && !string.IsNullOrEmpty(activity.StateOverride))
             {
                 return LimitPresenceText(SanitizePresenceText(activity.StateOverride));
-            }
-
-            if (activity == null)
-            {
-                string recentEventState = GetRecentEventStateLine(recentEventProvider);
-                if (!string.IsNullOrEmpty(recentEventState))
-                {
-                    return recentEventState;
-                }
             }
 
             if (!inGame)
@@ -93,8 +84,16 @@ namespace RimCord
                 : RimCordText.SafeTranslate(RimCordText.StatusPlaying);
         }
 
-        internal static string BuildDetails(ActivityInfo activity, bool inGame, bool isPaused, int colonistCount, RimCordSettings settings, Func<(string State, string Details)?> recentEventProvider)
+        internal static string BuildDetails(ActivityInfo activity, bool inGame, bool isPaused, int colonistCount, RimCordSettings settings)
         {
+            bool isQueuedEvent = activity != null && string.Equals(activity.Activity, "QueuedEvent", StringComparison.Ordinal);
+            bool isGameCondition = activity != null && string.Equals(activity.Activity, "GameCondition", StringComparison.Ordinal);
+
+            if (inGame && isQueuedEvent)
+            {
+                return BuildLetterDetails(activity.StateOverride, settings);
+            }
+
             if (inGame && isPaused)
             {
                 string pausedDetails = PausedContextBuilder.GetPausedDetails(settings);
@@ -104,35 +103,10 @@ namespace RimCord
                 return LimitDetailsText(RimCordText.SafeTranslate(RimCordText.StatusPaused));
             }
 
-            bool isQueuedEvent = activity != null && string.Equals(activity.Activity, "QueuedEvent", StringComparison.Ordinal);
-            bool isGameCondition = activity != null && string.Equals(activity.Activity, "GameCondition", StringComparison.Ordinal);
-
             if (inGame && !isPaused && settings.ShowColonistCount)
             {
-                string eventContext = GetEventContextForDetails(activity, isQueuedEvent, isGameCondition, recentEventProvider);
-
-                detailsParts.Clear();
-                if (settings.ShowColonyName)
-                {
-                    string colonyName = ColonyInfo.GetColonyName();
-                    if (!string.IsNullOrEmpty(colonyName))
-                        detailsParts.Add(colonyName);
-                }
-                int yr = WorldInfo.GetYear();
-                if (yr > 0)
-                {
-                    string quadrum = WorldInfo.GetQuadrum();
-                    detailsParts.Add(string.IsNullOrEmpty(quadrum)
-                        ? string.Format("{0} {1}", RimCordText.Year.Translate(), yr)
-                        : string.Format("{0} {1}, {2}", RimCordText.Year.Translate(), yr, quadrum));
-                }
-                if (settings.ShowBiome)
-                {
-                    string biome = WorldInfo.GetBiomeName();
-                    if (!string.IsNullOrEmpty(biome))
-                        detailsParts.Add(biome);
-                }
-                string colonyInfo = detailsParts.Count > 0 ? string.Join(" | ", detailsParts) : null;
+                string eventContext = GetEventContextForDetails(activity, isQueuedEvent, isGameCondition);
+                string colonyInfo = BuildColonyContext(settings);
 
                 if (!string.IsNullOrEmpty(eventContext) && !string.IsNullOrEmpty(colonyInfo))
                     return LimitDetailsText(string.Format("{0} | {1}", eventContext, colonyInfo));
@@ -153,13 +127,19 @@ namespace RimCord
 
             if (!inGame)
             {
+                bool showMainMenuModCount = settings == null || settings.ShowMainMenuModCount;
+                if (!showMainMenuModCount)
+                {
+                    return RimCordText.SafeTranslate(RimCordText.BrowsingMods);
+                }
+
                 try
                 {
                     if (LanguageDatabase.activeLanguage == null)
                     {
-                        return "Browsing mods and settings";
+                        return RimCordText.SafeTranslate(RimCordText.BrowsingMods);
                     }
-                    
+
                     int modCount = ModsConfig.ActiveModsInLoadOrder
                         .Count(m => m != null && !m.Official && !m.PackageId.StartsWith("ludeon.", StringComparison.OrdinalIgnoreCase));
                     if (modCount > 0)
@@ -167,13 +147,13 @@ namespace RimCord
                         string modText = modCount == 1 ? "mod" : "mods";
                         try
                         {
-                            modText = modCount == 1 
-                                ? "RimCord_Mod".Translate().ToString() 
+                            modText = modCount == 1
+                                ? "RimCord_Mod".Translate().ToString()
                                 : "RimCord_Mods".Translate().ToString();
                         }
                         catch { }
-                        
-                        return string.Format("{0} ({1} {2})", 
+
+                        return string.Format("{0} ({1} {2})",
                             RimCordText.SafeTranslate(RimCordText.BrowsingMods),
                             modCount,
                             modText);
@@ -183,57 +163,14 @@ namespace RimCord
                 return RimCordText.SafeTranslate(RimCordText.BrowsingMods);
             }
 
-            detailsParts.Clear();
-
-            if (settings.ShowColonyName)
-            {
-                string colonyName = ColonyInfo.GetColonyName();
-                if (!string.IsNullOrEmpty(colonyName))
-                    detailsParts.Add(colonyName);
-            }
-
-            int year = WorldInfo.GetYear();
-            if (year > 0)
-            {
-                string quadrum = WorldInfo.GetQuadrum();
-                detailsParts.Add(string.IsNullOrEmpty(quadrum)
-                    ? string.Format("{0} {1}", RimCordText.Year.Translate(), year)
-                    : string.Format("{0} {1}, {2}", RimCordText.Year.Translate(), year, quadrum));
-            }
-
-            if (settings.ShowBiome)
-            {
-                string biome = WorldInfo.GetBiomeName();
-                if (!string.IsNullOrEmpty(biome))
-                    detailsParts.Add(biome);
-            }
-
-            string joinedParts = detailsParts.Count > 0 ? string.Join(" | ", detailsParts) : null;
+            string joinedParts = BuildColonyContext(settings);
 
             if (string.IsNullOrEmpty(joinedParts))
             {
-                string letterDescription = GetLetterDescription(activity, isQueuedEvent, recentEventProvider);
-                if (!string.IsNullOrEmpty(letterDescription))
+                string conditionDescription = GetConditionDescription(activity, isGameCondition);
+                if (!string.IsNullOrEmpty(conditionDescription))
                 {
-                    joinedParts = letterDescription;
-                }
-                else
-                {
-                    string conditionDescription = GetConditionDescription(activity, isGameCondition);
-                    if (!string.IsNullOrEmpty(conditionDescription))
-                    {
-                        joinedParts = conditionDescription;
-                    }
-                    else
-                    {
-                        var recentEvent = recentEventProvider?.Invoke();
-                        if (recentEvent.HasValue)
-                        {
-                            joinedParts = !string.IsNullOrEmpty(recentEvent.Value.State)
-                                ? recentEvent.Value.State
-                                : recentEvent.Value.Details;
-                        }
-                    }
+                    joinedParts = conditionDescription;
                 }
             }
 
@@ -251,8 +188,7 @@ namespace RimCord
         private static string GetEventContextForDetails(
             ActivityInfo activity,
             bool isQueuedEvent,
-            bool isGameCondition,
-            Func<(string State, string Details)?> recentEventProvider)
+            bool isGameCondition)
         {
             if (activity != null)
             {
@@ -277,7 +213,7 @@ namespace RimCord
 
                 if (isQueuedEvent)
                 {
-                    return ComposeEventLine(activity.StateOverride, activity.DetailsOverride);
+                    return null;
                 }
 
                 if (isGameCondition)
@@ -288,32 +224,6 @@ namespace RimCord
 
                 if (!string.IsNullOrEmpty(activity.StateOverride))
                     return LimitPresenceText(SanitizePresenceText(activity.StateOverride));
-            }
-
-            var recentEvent = recentEventProvider?.Invoke();
-            if (recentEvent.HasValue)
-            {
-                var (state, details) = recentEvent.Value;
-                string value = !string.IsNullOrEmpty(state) ? state : details;
-                if (!string.IsNullOrEmpty(value)) return LimitPresenceText(SanitizePresenceText(value));
-            }
-
-            return null;
-        }
-
-        private static string GetLetterDescription(ActivityInfo activity, bool isQueuedEvent, Func<(string State, string Details)?> recentEventProvider)
-        {
-            if (activity != null && isQueuedEvent)
-            {
-                return LimitDetailsText(ComposeEventLine(activity.StateOverride, activity.DetailsOverride));
-            }
-
-            var recentEvent = recentEventProvider?.Invoke();
-            if (recentEvent.HasValue)
-            {
-                var (state, details) = recentEvent.Value;
-                string value = !string.IsNullOrEmpty(state) ? state : details;
-                return LimitDetailsText(value);
             }
 
             return null;
@@ -349,7 +259,7 @@ namespace RimCord
 
             if (isQueuedEvent)
             {
-                return ComposeEventLine(activity.StateOverride, activity.DetailsOverride);
+                return LimitPresenceText(SanitizePresenceText(activity.StateOverride));
             }
 
             if (isGameCondition)
@@ -414,23 +324,64 @@ namespace RimCord
             return value.Substring(0, maxLength).TrimEnd() + "...";
         }
 
-        private static string GetRecentEventStateLine(Func<(string State, string Details)?> recentEventProvider)
+        private static string BuildLetterDetails(string letterTitle, RimCordSettings settings)
         {
-            var recentEvent = recentEventProvider?.Invoke();
-            if (!recentEvent.HasValue)
+            string cleanTitle = LimitPresenceText(SanitizePresenceText(letterTitle));
+            string colonyContext = BuildColonyContext(settings);
+
+            if (!string.IsNullOrEmpty(cleanTitle) && !string.IsNullOrEmpty(colonyContext))
             {
-                return null;
+                return LimitDetailsText(string.Format("{0} | {1}", cleanTitle, colonyContext));
             }
 
-            var (state, details) = recentEvent.Value;
-            string persistedLine = ComposeEventLine(state, details);
-            if (!string.IsNullOrEmpty(persistedLine))
+            if (!string.IsNullOrEmpty(cleanTitle))
             {
-                return persistedLine;
+                return LimitDetailsText(cleanTitle);
             }
 
-            string sanitizedState = LimitPresenceText(SanitizePresenceText(state));
-            return string.IsNullOrEmpty(sanitizedState) ? null : sanitizedState;
+            if (!string.IsNullOrEmpty(colonyContext))
+            {
+                return LimitDetailsText(colonyContext);
+            }
+
+            int year = WorldInfo.GetYear();
+            return year > 0
+                ? LimitDetailsText(string.Format("{0} {1}", RimCordText.Year.Translate(), year))
+                : LimitDetailsText(RimCordText.SafeTranslate(RimCordText.StatusPlayingRimWorld));
+        }
+
+        private static string BuildColonyContext(RimCordSettings settings)
+        {
+            detailsParts.Clear();
+
+            if (settings != null && settings.ShowColonyName)
+            {
+                string colonyName = ColonyInfo.GetColonyName();
+                if (!string.IsNullOrEmpty(colonyName))
+                {
+                    detailsParts.Add(colonyName);
+                }
+            }
+
+            int year = WorldInfo.GetYear();
+            if (year > 0)
+            {
+                string quadrum = WorldInfo.GetQuadrum();
+                detailsParts.Add(string.IsNullOrEmpty(quadrum)
+                    ? string.Format("{0} {1}", RimCordText.Year.Translate(), year)
+                    : string.Format("{0} {1}, {2}", RimCordText.Year.Translate(), year, quadrum));
+            }
+
+            if (settings != null && settings.ShowBiome)
+            {
+                string biome = WorldInfo.GetBiomeName();
+                if (!string.IsNullOrEmpty(biome))
+                {
+                    detailsParts.Add(biome);
+                }
+            }
+
+            return detailsParts.Count > 0 ? string.Join(" | ", detailsParts) : null;
         }
 
         private static string LimitDetailsText(string value)

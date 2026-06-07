@@ -16,6 +16,15 @@ namespace RimCord.HarmonyPatches
                 return;
             }
 
+            var settings = RimCordMod.Settings;
+            if (settings == null ||
+                !settings.EnableRichPresence ||
+                !settings.ShowLetterEvents ||
+                !settings.ShowThreatAlerts)
+            {
+                return;
+            }
+
             if (!(parms.target is Map))
             {
                 return;

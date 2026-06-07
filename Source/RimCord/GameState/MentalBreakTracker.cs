@@ -90,10 +90,10 @@ namespace RimCord.GameState
 
         private static MentalStateDef GetCurrentMentalStateDef(Pawn pawn)
         {
-            if (pawn == null)
+            if (pawn == null || !pawn.InMentalState)
                 return null;
 
-            if (pawn.InMentalState && pawn.MentalStateDef != null)
+            if (pawn.MentalStateDef != null)
             {
                 return pawn.MentalStateDef;
             }
@@ -119,4 +119,3 @@ namespace RimCord.GameState
         }
     }
 }
-
