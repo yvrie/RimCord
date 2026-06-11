@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>Show Colonist Count</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Display current number of colonists</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>Show in-game year</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Display the current in-game year in Discord status</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>Show quadrum/month</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Display the current in-game quadrum or month in Discord status</RimCord_ShowInGameQuadrumDesc>
     <RimCord_EnablePauseDetection>Detect pause state</RimCord_EnablePauseDetection>
     <RimCord_EnablePauseDetectionDesc>Show paused status in Discord when the game is paused</RimCord_EnablePauseDetectionDesc>
     <RimCord_PauseDisplayDelaySeconds>Pause display delay in seconds (0-3600)</RimCord_PauseDisplayDelaySeconds>

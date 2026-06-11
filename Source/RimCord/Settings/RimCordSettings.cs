@@ -9,6 +9,8 @@ namespace RimCord
         public bool EnableRichPresence = true;
         public bool ShowColonyName = false;
         public bool ShowColonistCount = true;
+        public bool ShowInGameYear = true;
+        public bool ShowInGameQuadrum = true;
         public bool EnablePauseDetection = true;
         public int PauseDisplayDelaySeconds = 60;
         public bool ShowMainMenuModCount = true;
@@ -29,6 +31,8 @@ namespace RimCord
             Scribe_Values.Look(ref EnableRichPresence, "EnableRichPresence", true);
             Scribe_Values.Look(ref ShowColonyName, "ShowColonyName", false);
             Scribe_Values.Look(ref ShowColonistCount, "ShowColonistCount", true);
+            Scribe_Values.Look(ref ShowInGameYear, "ShowInGameYear", true);
+            Scribe_Values.Look(ref ShowInGameQuadrum, "ShowInGameQuadrum", true);
             Scribe_Values.Look(ref EnablePauseDetection, "EnablePauseDetection", true);
             Scribe_Values.Look(ref PauseDisplayDelaySeconds, "PauseDisplayDelaySeconds", 60);
             ClampPauseDisplayDelay();
@@ -145,6 +149,10 @@ namespace RimCord
             listing.CheckboxLabeled("RimCord_ShowColonyName".Translate(), ref ShowColonyName, "RimCord_ShowColonyNameDesc".Translate());
             listing.Gap(4f);
             listing.CheckboxLabeled("RimCord_ShowColonistCount".Translate(), ref ShowColonistCount, "RimCord_ShowColonistCountDesc".Translate());
+            listing.Gap(4f);
+            listing.CheckboxLabeled("RimCord_ShowInGameYear".Translate(), ref ShowInGameYear, "RimCord_ShowInGameYearDesc".Translate());
+            listing.Gap(4f);
+            listing.CheckboxLabeled("RimCord_ShowInGameQuadrum".Translate(), ref ShowInGameQuadrum, "RimCord_ShowInGameQuadrumDesc".Translate());
             listing.Gap(4f);
             listing.CheckboxLabeled("RimCord_EnablePauseDetection".Translate(), ref EnablePauseDetection, "RimCord_EnablePauseDetectionDesc".Translate());
             listing.Gap(4f);

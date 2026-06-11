@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>식민지 주민 수 표시</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>현재 식민지 주민 수 표시</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>게임 내 연도 표시</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Discord 상태에 현재 게임 내 연도를 표시합니다</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>분기/월 표시</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Discord 상태에 현재 게임 분기 또는 월을 표시합니다</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>일시정지 상태 감지</RimCord_EnablePauseDetection>

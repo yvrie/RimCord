@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>Mostrar número de colonos</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Exibir o número atual de colonos</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>Mostrar ano do jogo</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Exibe o ano atual do jogo no status do Discord</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>Mostrar quadrum/mês</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Exibe o quadrum ou mês atual no status do Discord</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>Detectar estado de pausa</RimCord_EnablePauseDetection>

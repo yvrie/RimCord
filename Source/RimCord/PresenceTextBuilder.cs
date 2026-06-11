@@ -114,10 +114,7 @@ namespace RimCord
                     return LimitDetailsText(eventContext);
                 if (!string.IsNullOrEmpty(colonyInfo))
                     return LimitDetailsText(colonyInfo);
-                int fallbackYr = WorldInfo.GetYear();
-                return fallbackYr > 0
-                    ? LimitDetailsText(string.Format("{0} {1}", RimCordText.Year.Translate(), fallbackYr))
-                    : LimitDetailsText(RimCordText.SafeTranslate(RimCordText.StatusPlayingRimWorld));
+                return BuildDefaultInGameDetails(settings);
             }
 
             if (activity != null && !isQueuedEvent && !isGameCondition && !string.IsNullOrEmpty(activity.DetailsOverride))
@@ -176,10 +173,7 @@ namespace RimCord
 
             if (string.IsNullOrEmpty(joinedParts))
             {
-                int defaultYear = WorldInfo.GetYear();
-                return defaultYear > 0
-                    ? LimitDetailsText(string.Format("{0} {1}", RimCordText.Year.Translate(), defaultYear))
-                    : LimitDetailsText(RimCordText.StatusPlayingRimWorld.Translate());
+                return BuildDefaultInGameDetails(settings);
             }
 
             return LimitDetailsText(joinedParts);
@@ -344,10 +338,7 @@ namespace RimCord
                 return LimitDetailsText(colonyContext);
             }
 
-            int year = WorldInfo.GetYear();
-            return year > 0
-                ? LimitDetailsText(string.Format("{0} {1}", RimCordText.Year.Translate(), year))
-                : LimitDetailsText(RimCordText.SafeTranslate(RimCordText.StatusPlayingRimWorld));
+            return BuildDefaultInGameDetails(settings);
         }
 
         private static string BuildColonyContext(RimCordSettings settings)
@@ -363,13 +354,25 @@ namespace RimCord
                 }
             }
 
-            int year = WorldInfo.GetYear();
-            if (year > 0)
+            bool showYear = settings == null || settings.ShowInGameYear;
+            bool showQuadrum = settings == null || settings.ShowInGameQuadrum;
+            if (showYear || showQuadrum)
             {
-                string quadrum = WorldInfo.GetQuadrum();
-                detailsParts.Add(string.IsNullOrEmpty(quadrum)
-                    ? string.Format("{0} {1}", RimCordText.Year.Translate(), year)
-                    : string.Format("{0} {1}, {2}", RimCordText.Year.Translate(), year, quadrum));
+                int year = showYear ? WorldInfo.GetYear() : 0;
+                string quadrum = showQuadrum ? WorldInfo.GetQuadrum() : null;
+
+                if (year > 0 && !string.IsNullOrEmpty(quadrum))
+                {
+                    detailsParts.Add(string.Format("{0} {1}, {2}", RimCordText.Year.Translate(), year, quadrum));
+                }
+                else if (year > 0)
+                {
+                    detailsParts.Add(string.Format("{0} {1}", RimCordText.Year.Translate(), year));
+                }
+                else if (!string.IsNullOrEmpty(quadrum))
+                {
+                    detailsParts.Add(quadrum);
+                }
             }
 
             if (settings != null && settings.ShowBiome)
@@ -382,6 +385,34 @@ namespace RimCord
             }
 
             return detailsParts.Count > 0 ? string.Join(" | ", detailsParts) : null;
+        }
+
+        private static string BuildDefaultInGameDetails(RimCordSettings settings)
+        {
+            bool showYear = settings == null || settings.ShowInGameYear;
+            bool showQuadrum = settings == null || settings.ShowInGameQuadrum;
+            if (showYear || showQuadrum)
+            {
+                int year = showYear ? WorldInfo.GetYear() : 0;
+                string quadrum = showQuadrum ? WorldInfo.GetQuadrum() : null;
+
+                if (year > 0 && !string.IsNullOrEmpty(quadrum))
+                {
+                    return LimitDetailsText(string.Format("{0} {1}, {2}", RimCordText.Year.Translate(), year, quadrum));
+                }
+
+                if (year > 0)
+                {
+                    return LimitDetailsText(string.Format("{0} {1}", RimCordText.Year.Translate(), year));
+                }
+
+                if (!string.IsNullOrEmpty(quadrum))
+                {
+                    return LimitDetailsText(quadrum);
+                }
+            }
+
+            return LimitDetailsText(RimCordText.SafeTranslate(RimCordText.StatusPlayingRimWorld));
         }
 
         private static string LimitDetailsText(string value)

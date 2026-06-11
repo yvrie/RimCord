@@ -42,6 +42,11 @@ namespace RimCord
 
         public bool IsDisposed => isDisposed;
 
+        public void StartGameplaySession()
+        {
+            sessionStartTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        }
+
         public void Initialize()
         {
             if (!sessionStartTimestamp.HasValue)
@@ -348,7 +353,7 @@ namespace RimCord
         {
             if (!inGame)
             {
-                return "RimCord_MainMenu".Translate();
+                return RimCordText.SafeTranslate(RimCordText.MainMenu);
             }
 
             if (activity != null)
@@ -410,12 +415,18 @@ namespace RimCord
                 catch { }
             }
 
-            string finalStateValue = finalState ?? (inGame ? "RimCord_Status_Playing".Translate().ToString() : "RimCord_MainMenu".Translate().ToString());
-            string finalDetailsValue = finalDetails ?? (inGame ? "RimWorld" : "RimCord_BrowsingMods".Translate().ToString());
+            string finalStateValue = finalState ?? (inGame
+                ? RimCordText.SafeTranslate(RimCordText.StatusPlaying)
+                : RimCordText.SafeTranslate(RimCordText.MainMenu));
+            string finalDetailsValue = finalDetails ?? (inGame
+                ? "RimWorld"
+                : RimCordText.SafeTranslate(RimCordText.BrowsingMods));
             
             if (string.IsNullOrEmpty(finalStateValue))
             {
-                finalStateValue = inGame ? "RimCord_Status_Playing".Translate() : "RimCord_MainMenu".Translate();
+                finalStateValue = inGame
+                    ? RimCordText.SafeTranslate(RimCordText.StatusPlaying)
+                    : RimCordText.SafeTranslate(RimCordText.MainMenu);
             }
             
             if (string.IsNullOrEmpty(finalDetailsValue))
@@ -424,10 +435,25 @@ namespace RimCord
                 {
                     try
                     {
-                        int defaultYear = WorldInfo.GetYear();
-                        if (defaultYear > 0)
+                        bool showYear = RimCordMod.Settings?.ShowInGameYear == true;
+                        bool showQuadrum = RimCordMod.Settings?.ShowInGameQuadrum == true;
+                        int defaultYear = showYear ? WorldInfo.GetYear() : 0;
+                        string defaultQuadrum = showQuadrum ? WorldInfo.GetQuadrum() : null;
+                        if (defaultYear > 0 && !string.IsNullOrEmpty(defaultQuadrum))
+                        {
+                            finalDetailsValue = string.Format(
+                                "{0} {1}, {2}",
+                                RimCordText.Year.Translate(),
+                                defaultYear,
+                                defaultQuadrum);
+                        }
+                        else if (defaultYear > 0)
                         {
                             finalDetailsValue = string.Format("{0} {1}", RimCordText.Year.Translate(), defaultYear);
+                        }
+                        else if (!string.IsNullOrEmpty(defaultQuadrum))
+                        {
+                            finalDetailsValue = defaultQuadrum;
                         }
                         else
                         {
@@ -441,7 +467,7 @@ namespace RimCord
                 }
                 else
                 {
-                    finalDetailsValue = "RimCord_BrowsingMods".Translate();
+                    finalDetailsValue = RimCordText.SafeTranslate(RimCordText.BrowsingMods);
                 }
             }
 

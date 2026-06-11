@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>Показывать количество колонистов</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Отображать текущее количество колонистов</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>Показывать игровой год</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Показывает текущий игровой год в статусе Discord</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>Показывать квадрум/месяц</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Показывает текущий квадрум или месяц в статусе Discord</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>Определять состояние паузы</RimCord_EnablePauseDetection>

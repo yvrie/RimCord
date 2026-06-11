@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>Siedler-Anzahl anzeigen</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Aktuelle Anzahl der Siedler anzeigen</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>Spieljahr anzeigen</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Zeigt das aktuelle Spieljahr im Discord-Status an</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>Quartal/Monat anzeigen</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Zeigt das aktuelle Quartal oder den Monat im Discord-Status an</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>Pausenzustand erkennen</RimCord_EnablePauseDetection>

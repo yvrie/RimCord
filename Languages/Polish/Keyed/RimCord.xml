@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>Pokaż liczbę kolonistów</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>Wyświetl aktualną liczbę kolonistów</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>Pokaż rok w grze</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Wyświetla aktualny rok w grze w statusie Discord</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>Pokaż kwartał/miesiąc</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Wyświetla aktualny kwartał lub miesiąc w statusie Discord</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>Wykrywaj pauzę</RimCord_EnablePauseDetection>

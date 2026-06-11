@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>入植者数を表示</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>現在の入植者数を表示</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>ゲーム内の年を表示</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>Discordステータスに現在のゲーム内年を表示します</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>季節/月を表示</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>Discordステータスに現在の季節または月を表示します</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>一時停止状態を検出</RimCord_EnablePauseDetection>

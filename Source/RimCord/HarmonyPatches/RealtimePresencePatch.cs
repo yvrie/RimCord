@@ -33,7 +33,9 @@ namespace RimCord.HarmonyPatches
             try
             {
                 var settings = RimCordMod.Settings;
-                if (settings == null || !settings.EnableRichPresence)
+                if (settings == null ||
+                    !settings.EnableRichPresence ||
+                    LanguageDatabase.activeLanguage == null)
                     return;
 
                 if (Current.ProgramState == ProgramState.Playing)

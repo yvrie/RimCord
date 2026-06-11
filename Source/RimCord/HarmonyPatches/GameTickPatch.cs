@@ -91,6 +91,7 @@ namespace RimCord.HarmonyPatches
                     presenceManager.Initialize();
                 }
 
+                RimCordMod.PresenceManager.StartGameplaySession();
                 WorldInfo.InvalidateCache();
                 StorytellerInfo.InvalidateCache();
                 ForcePresenceUpdate("game load");

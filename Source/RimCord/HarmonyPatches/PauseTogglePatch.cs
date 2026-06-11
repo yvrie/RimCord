@@ -11,8 +11,7 @@ namespace RimCord.HarmonyPatches
             try
             {
                 if (RimCordMod.Settings == null ||
-                    !RimCordMod.Settings.EnableRichPresence ||
-                    !RimCordMod.Settings.EnablePauseDetection)
+                    !RimCordMod.Settings.EnableRichPresence)
                     return;
 
                 if (Current.ProgramState != ProgramState.Playing)

@@ -16,6 +16,10 @@
 
     <RimCord_ShowColonistCount>显示殖民者数量</RimCord_ShowColonistCount>
     <RimCord_ShowColonistCountDesc>显示当前殖民者数量</RimCord_ShowColonistCountDesc>
+    <RimCord_ShowInGameYear>显示游戏年份</RimCord_ShowInGameYear>
+    <RimCord_ShowInGameYearDesc>在 Discord 状态中显示当前游戏年份</RimCord_ShowInGameYearDesc>
+    <RimCord_ShowInGameQuadrum>显示象限/月</RimCord_ShowInGameQuadrum>
+    <RimCord_ShowInGameQuadrumDesc>在 Discord 状态中显示当前游戏象限或月份</RimCord_ShowInGameQuadrumDesc>
 
 
     <RimCord_EnablePauseDetection>检测暂停状态</RimCord_EnablePauseDetection>
